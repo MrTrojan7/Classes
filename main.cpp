@@ -18,15 +18,9 @@ int main()
 		cout << stack.Pop() << endl;
 	}*/
 	Computer comp;
-	comp.SetModel("Dell");
-	comp.SetOS("Windows");
-	comp.SetProcessor("Intel");
-	cout << comp.GetModel() << endl;
-	cout << comp.GetOS() << endl;
-	cout << comp.GetProcessor() << endl;
-	cout << comp.GetGeneration() << endl;
-	cout << comp.SetBenchmark() << endl;
-
+	comp.Show();
+	Computer comp2("Dell", "Linux", "AMD", 10);
+	comp2.Show();
 
 
 }

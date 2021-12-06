@@ -6,11 +6,12 @@ private:
 	char* model;
 	char* os;
 	char* processor;
-	double benchmark;
 	int generation;
-	double exp_benchmark;
+	const double exp_benchmark = 2.5;
 public:
 	Computer();
+	Computer(const char* _model, const char* _os, 
+			const char* _processor, int _generaion);
 	const char* GetModel();
 	const char* GetOS();
 	const char* GetProcessor();
@@ -19,6 +20,7 @@ public:
 	void SetModel(const char* model_);
 	void SetOS(const char* os_);
 	void SetProcessor(const char* processor_);
+	void Show();
 	~Computer();
 };
 

@@ -1,12 +1,32 @@
 #include "Computer.h"
 
+using namespace std;
+
 Computer::Computer()
 {
 	this->model = new char[50];
 	this->os = new char[50];
 	this->processor = new char[50];
-	this->generation = rand() % 12;
-	this->exp_benchmark = 2.5;
+	this->generation = rand() % (12 - 1) + 1;
+	strcpy_s(this->model, 49, "Lenovo");
+	strcpy_s(this->os, 49, "Windows");
+	strcpy_s(this->processor, 49, "Intel");
+}
+
+Computer::Computer(const char* _model, const char* _os, 
+					const char* _processor, int _generaion)
+{
+	model = new char[50];
+	os = new char[50];
+	processor = new char[50];
+	cout << "\ngood\n\n";
+	strcpy_s(model, 49, _model);
+	strcpy_s(os, 49, _os);
+	strcpy_s(processor, 49, _processor);
+	this->generation = _generaion;
+	/*delete[] _model;
+	delete[] _os;
+	delete[] _processor;*/
 }
 
 const char* Computer::GetModel()
@@ -47,6 +67,15 @@ void Computer::SetOS(const char* os_)
 void Computer::SetProcessor(const char* processor_)
 {
 	strcpy_s(processor, 49, processor_);
+}
+
+void Computer::Show()
+{
+	cout << GetModel() << endl;
+	cout << GetOS() << endl;
+	cout << GetProcessor() << endl;
+	cout << GetGeneration() << endl;
+	cout << SetBenchmark() << endl;
 }
 
 Computer::~Computer()
