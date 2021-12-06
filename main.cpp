@@ -24,8 +24,10 @@ int main()
 	Computer comp2("Dell", "Linux", "AMD", 10);
 	comp2.Show();*/
 
-	Book a;
+	/*Book a;
 	a.Show();
+	Book b("D.K.Rouling", "Harry Potter", "Fantastic", "England", 700, 1, 2005);
+	b.Show();*/
 
 
 }

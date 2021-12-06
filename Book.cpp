@@ -15,7 +15,10 @@ Book::Book()
 	strcpy_s(country, 99, "USA");
 }
 
-Book::Book(const char* author, const char* name, const char* genre, const char* country, int page_count, bool is_interesting, int year_of_publishing)
+Book::Book(const char* author, const char* name, 
+	const char* genre, const char* country, 
+	int page_count, bool is_interesting, 
+	int year_of_publishing)
 {
 	this->author = new char[100];
 	this->name = new char[100];
@@ -72,7 +75,7 @@ void Book::Show()
 	cout << "Country: " << this->country << "\n";
 	cout << "Year of publishing: " << this->year_of_publishing << "\n";
 	cout << "Page Count: " << this->page_count << "\n";
-	cout << "Is Interesting: " << this->is_interesting << "\n";
+	this->is_interesting ? cout << "Interesting\n" : cout << "Not interesting\n";
 }
 
 Book::~Book()
