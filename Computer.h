@@ -12,9 +12,9 @@ public:
 	Computer();
 	Computer(const char* _model, const char* _os, 
 			const char* _processor, int _generaion);
-	const char* GetModel();
-	const char* GetOS();
-	const char* GetProcessor();
+	const char* const GetModel();
+	const char* const GetOS();
+	const char* const GetProcessor();
 	double SetBenchmark();
 	int GetGeneration();
 	void SetModel(const char* model_);

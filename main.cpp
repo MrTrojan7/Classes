@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Stack.h"
 #include "Computer.h"
+#include "Book.h"
 
 using namespace std;
 
@@ -17,10 +18,14 @@ int main()
 	{
 		cout << stack.Pop() << endl;
 	}*/
-	Computer comp;
-	comp.Show();
+
+	/*Computer comp1;
+	comp1.Show();
 	Computer comp2("Dell", "Linux", "AMD", 10);
-	comp2.Show();
+	comp2.Show();*/
+
+	Book a;
+	a.Show();
 
 
 }

@@ -16,10 +16,9 @@ Computer::Computer()
 Computer::Computer(const char* _model, const char* _os, 
 					const char* _processor, int _generaion)
 {
-	model = new char[50];
-	os = new char[50];
-	processor = new char[50];
-	cout << "\ngood\n\n";
+	this->model = new char[50];
+	this->os = new char[50];
+	this->processor = new char[50];
 	strcpy_s(model, 49, _model);
 	strcpy_s(os, 49, _os);
 	strcpy_s(processor, 49, _processor);
@@ -29,17 +28,17 @@ Computer::Computer(const char* _model, const char* _os,
 	delete[] _processor;*/
 }
 
-const char* Computer::GetModel()
+const char* const Computer::GetModel()
 {
 	return model;
 }
 
-const char* Computer::GetOS()
+const char* const Computer::GetOS()
 {
 	return os;
 }
 
-const char* Computer::GetProcessor()
+const char* const Computer::GetProcessor()
 {
 	return processor;
 }
