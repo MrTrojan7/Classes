@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="Book.cpp" />
     <ClCompile Include="Computer.cpp" />
+    <ClCompile Include="Developer.cpp" />
     <ClCompile Include="Glasses.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Stack.cpp" />
@@ -148,6 +149,7 @@
   <ItemGroup>
     <ClInclude Include="Book.h" />
     <ClInclude Include="Computer.h" />
+    <ClInclude Include="Developer.h" />
     <ClInclude Include="Glasses.h" />
     <ClInclude Include="Stack.h" />
   </ItemGroup>

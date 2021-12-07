@@ -30,6 +30,9 @@
     <ClCompile Include="Glasses.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="Developer.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Computer.h">
@@ -42,6 +45,9 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Glasses.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Developer.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

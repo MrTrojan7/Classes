@@ -3,6 +3,7 @@
 #include "Computer.h"
 #include "Book.h"
 #include "Glasses.h"
+#include "Developer.h"
 
 using namespace std;
 
@@ -43,5 +44,14 @@ int main()
 	//Glasses c(-200, 1, 0, -4, 0); // fabs() for price 
 	//c.Print();
 	//cout << "\n";
+
+	/*Developer a(1, 1, 0, 1, "Yuriy", "ods");
+	a.Print();
+	cout << "\n";
+	Developer b;
+	b.Print();
+	cout << "\n";
+	Developer c(1, 0, 0, 0, "Dmitriy", "ods");
+	c.Print();*/
 
 }
