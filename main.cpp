@@ -1,34 +1,34 @@
 #include <iostream>
-#include <Windows.h>
-#include "Point.h"
-#include "Counter.h"
+#include "Stack.h"
+#include "Computer.h"
+#include "Book.h"
 
 using namespace std;
 
 int main()
 {
-	/////////////////////////////
-	//point:
-
-	/*cout << "a:\n";
-	Point a;
-	a.Print();
-	cout << "b:\n";
-	Point b(3, 2);
-	b.Print();
-	b.ShiftX(-1);
-	b.Print();*/
-	/////////////////////////////
-	Counter a;
-	a.SetStep(2);
-	
-	for (size_t i = 0; i < 30; i++)
+	srand(time(0));
+	/*Stack stack;
+	for (int i = 0; i < 5; i++)
 	{
-		a.Print();
-		Sleep(130);
-		cout << endl;
-		a.IncrByStep();
-		
+		stack.Push(i + 1);
 	}
-	return 0;
+
+	while (!stack.IsEmpty())
+	{
+		cout << stack.Pop() << endl;
+	}*/
+
+	/*Computer comp1;
+	comp1.Show();
+	Computer comp2("Dell", "Linux", "AMD", 10);
+	comp2.Show();*/
+
+	/*Book a;
+	a.Show();
+	cout << "\n";
+	Book b("D.K.Rouling", "Harry Potter", "Fantastic", "England", 700, 1, 2005);
+	b.Show();*/
+
+
 }
