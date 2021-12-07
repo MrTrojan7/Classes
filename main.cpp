@@ -20,14 +20,19 @@ int main()
 	b.Print();*/
 	/////////////////////////////
 	Counter a;
-	a.SetStep(2);
+	a.SetStep(3);
 	
-	for (size_t i = 0; i < 30; i++)
+	for (size_t i = 0; i < a.GetMax(); i++)
 	{
 		a.Print();
-		Sleep(130);
+		/*Sleep(150);*/
 		cout << endl;
 		a.IncrByStep();
+		system("cls");
+		/*if (a.GetCurrent() >= 100)
+		{
+			a.Reset();
+		}*/
 		
 	}
 	return 0;

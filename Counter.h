@@ -21,6 +21,7 @@ public:
 	void IncrByStep();
 	void Reset();
 	int GetCurrent() const;
+	int GetMax() const;
 	void Print() const;
 };
 

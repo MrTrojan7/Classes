@@ -1,7 +1,7 @@
 #include "Counter.h"
 #include <stdio.h>
 
-Counter::Counter() : Counter(0, 9)
+Counter::Counter() : Counter(0, 99999)
 {
 }
 
@@ -85,7 +85,12 @@ int Counter::GetCurrent() const
 	return _current;
 }
 
+int Counter::GetMax() const
+{
+	return _max;
+}
+
 void Counter::Print() const
 {
-	printf("%10d", _current);
+	printf("%06d", _current);
 }
