@@ -12,13 +12,16 @@ public:
 	Fraction(int numerator, int denominator);
 	void SetNumerator(int numerator);
 	void SetDenominator(int denominator);
+	void SetInteger();
 	void SetReduction();
-	void SetDecimalToFraction();
+	void SetToFraction();
+	void SetToDecimal(int numerator, int denominator);
 	bool CheckDenominatorOnZero() const;
 	bool CheckNumeratorOnZero() const;
 	int GetNumerator() const;
 	int GetDenominator() const;
 	int GetInteger() const;
+	double GetDecimal() const;
 	void Print() const;
 };
 

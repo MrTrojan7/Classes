@@ -38,11 +38,10 @@ int main()
 		
 	}*/
 	/////////////////////////////
-	/*Fraction a(50, 150);
+	Fraction a(400, 120);
 	a.Print();
 	a.SetReduction();
-	a.Print();*/
-
+	a.Print();
 	
 
 	return 0;

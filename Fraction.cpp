@@ -9,6 +9,8 @@ Fraction::Fraction(int numerator, int denominator)
 {
 	SetNumerator(numerator);
 	SetDenominator(denominator);
+	SetToDecimal(numerator, denominator);
+	SetInteger();
 }
 
 void Fraction::SetNumerator(int numerator)
@@ -23,6 +25,11 @@ void Fraction::SetDenominator(int denominator)
 	{
 		throw "Error! Denominator can't equals zero!";
 	}
+}
+
+void Fraction::SetInteger()
+{
+	this->_integer_num = static_cast<int>(_decimal_num);
 }
 
 void Fraction::SetReduction()
@@ -43,10 +50,14 @@ void Fraction::SetReduction()
 	}
 }
 
-void Fraction::SetDecimalToFraction()
+void Fraction::SetToFraction()
 {
-	this->_integer_num = (int)_decimal_num;
-	this->_decimal_num = _decimal_num - (int)_decimal_num;
+	this->_decimal_num = _decimal_num - static_cast<int>(_decimal_num);
+}
+
+void Fraction::SetToDecimal(int numerator, int denominator)
+{
+	this->_decimal_num = static_cast<double>(numerator) / denominator;
 }
 
 bool Fraction::CheckDenominatorOnZero() const
@@ -71,11 +82,18 @@ int Fraction::GetDenominator() const
 
 int Fraction::GetInteger() const
 {
-	return 0;
+	return _integer_num;
+}
+
+double Fraction::GetDecimal() const
+{
+	return _decimal_num;
 }
 
 void Fraction::Print() const
 {
-	cout << GetNumerator() << "\n-\n";
-	cout << GetDenominator() << "\n";
+	cout << "Numerator->\t\t\t" << GetNumerator() << "\n\t\t\t\t-\n";
+	cout << "Denominator->\t\t\t" << GetDenominator() << "\n\n";
+	cout << "Decimal fraction->\t\t" << GetDecimal() << "\n";
+	cout << "Integer part of fraction->\t" << GetInteger() << "\n\n";
 }
