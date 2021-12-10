@@ -1,5 +1,6 @@
 #include "Fraction.h"
 #include <iostream>
+#include <string>
 
 using namespace std;
 
@@ -11,6 +12,14 @@ Fraction::Fraction(int numerator, int denominator)
 	SetDenominator(denominator);
 	SetToDecimal(numerator, denominator);
 	SetInteger();
+}
+
+Fraction::Fraction(double decimal_num)
+{
+	SetDecimalNum(decimal_num);
+	SetInteger();
+	SetToFraction(decimal_num);
+	SetReduction();
 }
 
 void Fraction::SetNumerator(int numerator)
@@ -27,6 +36,11 @@ void Fraction::SetDenominator(int denominator)
 	}
 }
 
+void Fraction::SetDecimalNum(double decimal_num)
+{
+	this->_decimal_num = decimal_num;
+}
+
 void Fraction::SetInteger()
 {
 	this->_integer_num = static_cast<int>(_decimal_num);
@@ -38,9 +52,8 @@ void Fraction::SetReduction()
 	{
 		return;
 	}
-	int min_num;
-	_numerator < _denominator ? min_num = _numerator : min_num = _denominator;
-	for (size_t i = min_num; i >= 1; i--)
+	int min_num = _numerator < _denominator ? _numerator : _denominator;
+	for (int i = min_num; i > 2; i--)
 	{
 		if (_numerator % i == 0 && _denominator % i == 0)
 		{
@@ -50,14 +63,23 @@ void Fraction::SetReduction()
 	}
 }
 
-void Fraction::SetToFraction()
-{
-	this->_decimal_num = _decimal_num - static_cast<int>(_decimal_num);
-}
-
 void Fraction::SetToDecimal(int numerator, int denominator)
 {
 	this->_decimal_num = static_cast<double>(numerator) / denominator;
+}
+
+void Fraction::SetToFraction(double decimal_num)
+{
+	/*int copy_decimal;
+	copy_decimal = _decimal_num - static_cast<int>(_decimal_num);*/
+	string decimal_str = to_string(decimal_num);
+	int count = 10;
+	for (size_t i = 0; i < decimal_str.size(); i++) // проблема с производительностью
+	{
+		count *= 10;
+	}
+	this->_numerator = decimal_num * count;
+	this->_denominator = count;
 }
 
 bool Fraction::CheckDenominatorOnZero() const
@@ -90,10 +112,39 @@ double Fraction::GetDecimal() const
 	return _decimal_num;
 }
 
+double Fraction::Equal(Fraction& obj_1, Fraction& obj_2)
+{
+	return obj_1.GetDecimal() > obj_2.GetDecimal() ? obj_1.GetDecimal() : obj_2.GetDecimal();
+}
+
+double Fraction::Plus(Fraction& obj_1, Fraction& obj_2)
+{
+	return obj_1.GetDecimal() + obj_2.GetDecimal();
+}
+
+double Fraction::Minus(Fraction& obj_1, Fraction& obj_2)
+{
+	return obj_1.GetDecimal() - obj_2.GetDecimal();
+}
+
+double Fraction::Product(Fraction& obj_1, Fraction& obj_2)
+{
+	return obj_1.GetDecimal() * obj_2.GetDecimal();
+}
+
+double Fraction::Divided(Fraction& obj_1, Fraction& obj_2)
+{
+	if (!obj_2.GetDecimal())
+	{
+		throw "Error! Number can't equals zero!";
+	}
+	return obj_1.GetDecimal() / obj_2.GetDecimal();
+}
+
 void Fraction::Print() const
 {
-	cout << "Numerator->\t\t\t" << GetNumerator() << "\n\t\t\t\t-\n";
-	cout << "Denominator->\t\t\t" << GetDenominator() << "\n\n";
-	cout << "Decimal fraction->\t\t" << GetDecimal() << "\n";
-	cout << "Integer part of fraction->\t" << GetInteger() << "\n\n";
+	cout << /*"\tNumerator->\t" <<*/ GetNumerator() << "\n-\n";
+	cout << /*"\tDenominator->\t" <<*/ GetDenominator() << "\n\n";
+	cout << /*"\tDecimal fraction->" <<*/ GetDecimal() << "\n";
+	cout << /*"Integer part of fraction->" <<*/ GetInteger() << "\n\n";
 }
