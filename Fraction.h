@@ -24,11 +24,11 @@ public:
 	int GetDenominator() const;
 	int GetInteger() const;
 	double GetDecimal() const;
-	double Equal(Fraction& obj_1, Fraction& obj_2);
-	double Plus(Fraction& obj_1, Fraction& obj_2);
-	double Minus(Fraction& obj_1, Fraction& obj_2);
-	double Product(Fraction& obj_1, Fraction& obj_2);
-	double Divided(Fraction& obj_1, Fraction& obj_2);
+	static double Equal(Fraction& obj_1, Fraction& obj_2);
+	static double Plus(Fraction& obj_1, Fraction& obj_2);
+	static double Minus(Fraction& obj_1, Fraction& obj_2);
+	static double Product(Fraction& obj_1, Fraction& obj_2);
+	static double Divided(Fraction& obj_1, Fraction& obj_2);
 	void Print() const;
 };
 

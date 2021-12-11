@@ -38,12 +38,17 @@ int main()
 		
 	}*/
 	/////////////////////////////
-	Fraction a(1, 4);
-	a.Print();
-	/*a.SetReduction();
-	a.Print();*/
-	Fraction b(0.5); //проблема с производительностью при преобразовании в обычную дробь
-	b.Print();
-	cout << a.Divided(a, b) << endl;
+	//Fraction a(1, 4);
+	//a.Print();
+	///*a.SetReduction();
+	//a.Print();*/
+	//Fraction b(1.5); //проблема с производительностью при преобразовании в обычную дробь
+	//b.Print();
+	//cout << Fraction::Divided(a, b) << endl;
+	//cout << Fraction::Equal(a, b) << endl;
+	/////////////////////////////
+
+
+
 	return 0;
 }
