@@ -146,6 +146,7 @@
     <ClCompile Include="Student.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AllLibraries.h" />
     <ClInclude Include="Counter.h" />
     <ClInclude Include="Fraction.h" />
     <ClInclude Include="Point.h" />

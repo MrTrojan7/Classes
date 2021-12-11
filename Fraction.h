@@ -1,4 +1,5 @@
 #pragma once
+//#include "AllLibraries.h"
 class Fraction
 {
 private:
@@ -20,6 +21,7 @@ public:
 	void SetToFraction(double decimal_num);
 	bool CheckDenominatorOnZero() const;
 	bool CheckNumeratorOnZero() const;
+	void CheckOnZero(int denominator) const;
 	int GetNumerator() const;
 	int GetDenominator() const;
 	int GetInteger() const;

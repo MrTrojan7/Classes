@@ -1,5 +1,4 @@
 #include "Counter.h"
-#include <stdio.h>
 
 Counter::Counter() : Counter(0, 99999)
 {
