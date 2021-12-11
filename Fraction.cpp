@@ -29,11 +29,8 @@ void Fraction::SetNumerator(int numerator)
 
 void Fraction::SetDenominator(int denominator)
 {
+	CheckOnZero(denominator);
 	this->_denominator = denominator;
-	if (!CheckDenominatorOnZero())
-	{
-		throw "Error! Denominator can't equals zero!";
-	}
 }
 
 void Fraction::SetDecimalNum(double decimal_num)
@@ -92,6 +89,14 @@ bool Fraction::CheckNumeratorOnZero() const
 	return this->_numerator;
 }
 
+void Fraction::CheckOnZero(int denominator) const
+{
+	if (denominator == 0)
+	{
+		throw "Error! Denominator can't equals zero!";
+	}
+}
+
 int Fraction::GetNumerator() const
 {
 	return this->_numerator;
@@ -134,10 +139,7 @@ double Fraction::Product(Fraction& obj_1, Fraction& obj_2)
 
 double Fraction::Divided(Fraction& obj_1, Fraction& obj_2)
 {
-	if (!obj_2.GetDecimal())
-	{
-		throw "Error! Number can't equals zero!";
-	}
+	obj_2.CheckOnZero(obj_2._denominator);
 	return obj_1.GetDecimal() / obj_2.GetDecimal();
 }
 
