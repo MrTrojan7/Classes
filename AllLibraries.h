@@ -6,4 +6,5 @@
 #include <time.h>
 #include <conio.h>
 #include <ctime>
+#include <vector>
 using namespace std;

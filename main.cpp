@@ -1,6 +1,8 @@
+#include "AllLibraries.h"
 #include "Point.h"
 #include "Counter.h"
 #include "Fraction.h"
+#include "Student.h"
 
 int main()
 {
@@ -43,6 +45,10 @@ int main()
 	//cout << Fraction::Equal(a, b) << endl;
 	/////////////////////////////
 
+	/*Student student1;
+	student1.Show();*/
+	Student student2("Vasko", "Vasya", "Vasilievich", { 11, 12, 2000 }, "Chernyahovskogo 1", { 1212, 2222, 1111 }, { 12, 11, 10 });
+	student2.Show();
 
 
 	return 0;

@@ -6,12 +6,10 @@ Counter::Counter() : Counter(0, 99999)
 
 Counter::Counter(int min, int max) : Counter(min, max, 1)
 {
-
 }
 
 Counter::Counter(int min, int max, int current) : Counter(min, max, current, 1)
 {
-
 }
 
 Counter::Counter(int min, int max, int current, int step)
