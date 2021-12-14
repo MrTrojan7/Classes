@@ -6,6 +6,7 @@
 
 int main()
 {
+	//setlocale(LC_ALL, "Russian");
 	/////////////////////////////
 	//point:
 
@@ -46,9 +47,10 @@ int main()
 	/////////////////////////////
 
 	/*Student student1;
-	student1.Show();*/
-	Student student2("Vasko", "Vasya", "Vasilievich", { 11, 12, 2000 }, "Chernyahovskogo 1", { 1212, 2222, 1111 }, { 12, 11, 10 });
-	student2.Show();
+	student1.Show();
+	Student student2("Ivanov", "Ivan", "Ivanovich", { 11, 12, 2000 }, "Gaidara 22", { 11111111, 222222, 333 }, { 9, 9, 9 });
+	student2.SetEvaluations({ 8, 8, 8 });
+	student2.Show();*/
 
 
 	return 0;

@@ -18,9 +18,6 @@ public:
 class Rating
 {
 public:
-    vector<int> mas1;
-    vector<int> mas2;
-    vector<int> mas3;
     int ev1;
     int ev2;
     int ev3;
@@ -35,26 +32,34 @@ private:
     Date birthday;
     char* adress;
     PHONE phone;
-    Rating evaluation;
+    vector<int> mas1;
+    vector<int> mas2;
+    vector<int> mas3;
+    void SetBirthday(Date _birthday);
+    void SetPatronymic(const char* patronymic);
 
 public:
 
-    void SetSurame(char* surname);
-    void SetName(char* name);
-    void SetPatronymic(char* patronymic);
-    Date SetBirthday(Date _birthday);
-    void SetAdress(char* adress);
-    PHONE SetPhone(PHONE _phone);
-    Rating SetEvaluations (Rating _evaluation);
-    const char* const GetSurname() const;
-    const char* const GetName() const;
-    const char* const GetPatronymic() const;
-    Date GetBirthday() const;
-    const char* const GetAdress() const;
-    PHONE GetPhone() const;
+    void SetSurame(const char* surname);
+    void SetName(const char* name);
+
+    void SetAdress(const char* adress);
+    void SetPhone(PHONE _phone);
+    void SetEvaluations (Rating _evaluation);
+    char* GetSurname() const;
+    char* GetName() const;
+    char* GetPatronymic() const;
+    void GetBirthday(const Date date) const;
+    char* GetAdress() const;
+    void GetEvaluations(const vector <int> mas) const;
+    int GetPhone(const int phone) const;
+    bool GetCheckZero(int val1, int val2, int val3) const;
+
     void Show();
     Student();
-    Student(const char* Surname, char* Name, char* Patronymic, Date _Birthday, char* Adress, PHONE Phone, Rating _Evaluation);
+    Student(const char* Surname, const char* Name, 
+        const char* Patronymic, Date _Birthday, 
+        const char* Adress, PHONE Phone, Rating _Evaluation);
     ~Student();
 };
 

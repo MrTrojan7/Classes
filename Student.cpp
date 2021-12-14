@@ -1,136 +1,127 @@
 #include "Student.h"
 
-void Student::SetSurame(char* surname)
+void Student::SetSurame(const char* surname)
 {
-    if (!surname || strlen(surname) == 0)
-        return;
-
-    if (this->surname != nullptr)
-    {
-        delete[]this->surname;
-    }
-
     this->surname = new char[strlen(surname) + 1];
     strcpy_s(this->surname, strlen(surname) + 1, surname);
 }
 
-void Student::SetName(char* name)
+void Student::SetName(const char* name)
 {
-    if (!name || strlen(name) == 0)
-        return;
-
-    if (this->name != nullptr)
-    {
-        delete[]this->name;
-    }
-
     this->name = new char[strlen(name) + 1];
     strcpy_s(this->name, strlen(name) + 1, name);
 }
 
 
-void Student::SetPatronymic(char* patronymic)
+void Student::SetPatronymic(const char* patronymic)
 {
-    if (!patronymic || strlen(patronymic) == 0)
-        return;
-
-    if (this->patronymic != nullptr)
-    {
-        delete[]this->patronymic;
-    }
-
     this->patronymic = new char[strlen(patronymic) + 1];
     strcpy_s(this->patronymic, strlen(patronymic) + 1, patronymic);
 }
 
 
-Date Student::SetBirthday(Date _birthday)
+void Student::SetBirthday(Date _birthday)
 {
+    GetCheckZero(_birthday.day, _birthday.month, _birthday.year);
     this->birthday.day = _birthday.day;
     this->birthday.month = _birthday.month;
     this->birthday.year = _birthday.year;
 }
 
-void Student::SetAdress(char* adress)
+void Student::SetAdress(const char* adress)
 {
-    if (!adress || strlen(adress) == 0)
-        return;
-
-    if (this->adress != nullptr)
-    {
-        delete[]this->adress;
-    }
-
     this->adress = new char[strlen(adress) + 1];
     strcpy_s(this->adress, strlen(adress) + 1, adress);
 }
 
-PHONE Student::SetPhone(PHONE _phone)
+void Student::SetPhone(PHONE _phone)
 {
-        this->phone.mob = _phone.mob;
-        this->phone.home = _phone.home;
-        this->phone.work = _phone.work;
+    GetCheckZero(_phone.mob, _phone.home, _phone.work);
+    this->phone.mob = _phone.mob;
+    this->phone.home = _phone.home;
+    this->phone.work = _phone.work;
 }
 
-const char* const Student::GetSurname() const
+char* Student::GetSurname() const
 {
     return surname;
 }
 
-const char* const Student::GetName() const
+char* Student::GetName() const
 {
     return name;
 }
 
-Rating Student::SetEvaluations(Rating _evaluation)
+void Student::SetEvaluations(Rating _evaluation)
 {
-    this->evaluation.mas1.push_back(_evaluation.ev1);
-    this->evaluation.mas2.push_back(_evaluation.ev2);
-    this->evaluation.mas3.push_back(_evaluation.ev3);
+    GetCheckZero(_evaluation.ev1, _evaluation.ev2, _evaluation.ev3);
+    this->mas1.push_back(_evaluation.ev1);
+    this->mas2.push_back(_evaluation.ev2);
+    this->mas3.push_back(_evaluation.ev3);
 }
 
-const char* const Student::GetPatronymic() const
+char* Student::GetPatronymic() const
 {
     return patronymic;
 }
 
-Date Student::GetBirthday() const
+void Student::GetBirthday(const Date date) const
 {
-    return birthday;
+    cout << date.day << "/" << date.month << "/" << date.year << "\n";
 }
 
-const char* const Student::GetAdress() const
+char* Student::GetAdress() const
 {
     return  adress;
 }
 
-PHONE Student::GetPhone() const
+void Student::GetEvaluations(const vector <int> mas) const
+{
+    for (size_t i = 0; i < mas.size(); i++)
+    {
+        cout << mas[i] << " ";
+    }
+}
+
+bool Student::GetCheckZero(int val1, int val2, int val3) const
+{
+    if (!val1 || !val2 || !val3)
+    {
+        throw "Invalid value! It should not be equal to zero!";
+    }
+    return true;
+}
+
+int Student::GetPhone(int phone) const
 {
     return phone;
 }
 
 void Student::Show()
 {
-    cout << "фамилия: " << surname << "\n";
-    cout << "имья: " << name << "\n";
-    cout << "отчество: " << patronymic << "\n";
-    cout << "дата рождения: " << birthday.day << "." << birthday.month << "." << birthday.year << "\n";
-    cout << "домашный адресс: " << "ул. " << adress << "\n";
-    cout << "телефонный номер:\n"
-        << "моб. номер: " << phone.mob << "\n"
-        << "дом. номер: " << phone.home << "\n"
-        << "роб. номер: " << phone.work << "\n";
-    cout << "\n";
+    cout << "Surname: " << GetSurname() << "\n";
+    cout << "Name: " << GetName() << "\n";
+    cout << "Patronymic: " << GetPatronymic() << "\n";
+    cout << "Birthday date: "; 
+    GetBirthday(this->birthday);
+    cout << "Home Adress: " << "str. " << GetAdress() << "\n";
+    cout << "Telephone number:\n"
+        << "Mobile number: " << GetPhone(this->phone.mob) << "\n"
+        << "Home number: " << GetPhone(this->phone.home) << "\n"
+        << "Job number: " << GetPhone(this->phone.work) << "\n";
+    cout << "Grades of subject 1: ";
+    GetEvaluations(mas1);
+    cout << "\nGrades of subject 2: ";
+    GetEvaluations(mas2);
+    cout << "\nGrades of subject 3: ";
+    GetEvaluations(mas3);
+    cout << endl;
+
 }
 
-Student::Student()/* : Student("Fedko", "Vasya", "Vasilievich",
-    { 11, 12, 2000 }, "Chernyahovskogo 1", { 1212, 2222, 1111 })*/
-{
-}
-
-Student::Student(const char* Surname, char* Name, 
-    char* Patronymic, Date _Birthday, 
-    char* Adress, PHONE _Phone, Rating _Evaluation)
+Student::Student(const char* Surname, const char* Name, 
+    const char* Patronymic, Date _Birthday,
+    const char* Adress, PHONE _Phone, Rating _Evaluation)
 {
     SetSurame(Surname);
     SetName(Name); 
@@ -141,8 +132,14 @@ Student::Student(const char* Surname, char* Name,
     SetEvaluations(_Evaluation);
 }
 
+Student::Student() : Student("Fedko", "Vasya", "Vasilievich",
+    { 1, 1, 2000 }, "Chernyahovskogo 2", { 123456789 ,12345, 123 }, { 12, 11, 10 })
+{
+}
+
 Student::~Student()
 {
+    //cout << "DEST\n";
     delete[]this->name;
     delete[]this->surname;
     delete[]this->patronymic;
