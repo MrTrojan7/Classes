@@ -35,6 +35,7 @@ private:
     vector<int> mas1;
     vector<int> mas2;
     vector<int> mas3;
+    Rating _evaluations;
     void SetBirthday(Date _birthday);
     void SetPatronymic(const char* patronymic);
 
@@ -60,6 +61,7 @@ public:
     Student(const char* Surname, const char* Name, 
         const char* Patronymic, Date _Birthday, 
         const char* Adress, PHONE Phone, Rating _Evaluation);
+    Student(const Student& student);
     ~Student();
 };
 

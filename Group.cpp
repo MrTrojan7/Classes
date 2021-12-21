@@ -8,19 +8,42 @@ Group::Group(unsigned int quantity): Group("SPU121", "Programming", 1, quantity)
 {
 }
 
-Group::Group(const char* name, const char* specialization, unsigned int course, unsigned int quantity)
+Group::Group(const char* name, const char* specialization, 
+	const unsigned int course, const unsigned int quantity)
 {
 	SetNameOfGroup(name);
 	SetSpecializationOfGroup(specialization);
 	SetQuantity(quantity);
 	SetCourse(course);
-	this->_student = new Student[quantity];
-	for (int i = 0; i < quantity; i++)
+	this->_student = new Student[GetQuantity()]; //lost time...
+}
+
+Group::Group (const Group& group)
+{
+	cout << "COPY C-TOR!" << endl;
+	this->SetQuantity(group.GetQuantity());
+	this->SetName(group.GetName());
+	this->SetSpecializationOfGroup(group.GetSpecialization());
+	//this->_student = new Student[group.GetQuantity()];
+	for (int i = 0; i < group.GetQuantity(); i++)
 	{
-		Student test;
-		AddStudent(test, i);
+		this->_student = group._student;
 	}
 }
+
+//Group Group::operator=(const Group& group)
+//{
+//	cout << "COPY C-TOR!" << endl;
+//	this->SetQuantity(group.GetQuantity());
+//	this->SetName(group.GetName());
+//	this->SetSpecializationOfGroup(group.GetSpecialization());
+//	//this->_student = new Student[group.GetQuantity()];
+//	for (int i = 0; i < group.GetQuantity(); i++)
+//	{
+//		this->_student = group._student;
+//	}
+//	return group;
+//}
 
 void Group::SetNameOfGroup(const char* name)
 {
@@ -44,22 +67,43 @@ void Group::SetCourse(unsigned int course)
 	this->_course = course;
 }
 
-void Group::ShowAllStudents() const
+const void Group::ShowAllStudents() const
 {
-	for (int i = 0; i < this->_quantity; i++)
+	cout << "\nName of group: " << GetName() << endl;
+	cout << "Specialization: " << GetSpecialization() << endl;
+	cout << "Course: " << GetCourse() << endl;
+	cout << "Quantity: " << GetQuantity() << endl;
+	for (int i = 0; i < GetQuantity(); i++)
 	{
 		this->_student[i].Show();
+		cout << endl;
 	}
 }
 
-void Group::AddStudent(Student& student, int index)
+const unsigned int Group::GetQuantity() const
 {
-	this->_student[index] = student;
+	return this->_quantity;
+}
+
+const char* const Group::GetName() const
+{
+	return this->_name;
+}
+
+unsigned int const Group::GetCourse() const
+{
+	return this->_course;
+}
+
+const char* const Group::GetSpecialization() const
+{
+	return this->_specialization;
 }
 
 Group::~Group()
 {
-	if(this->_student != nullptr)
+	cout << "Group Dest!\n";
+	if (this->_student != nullptr)
 		delete[] this->_student;
 	if (this->_specialization != nullptr)
 		delete[] this->_specialization;

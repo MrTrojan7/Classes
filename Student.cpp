@@ -55,6 +55,7 @@ char* Student::GetName() const
 void Student::SetEvaluations(Rating _evaluation)
 {
     GetCheckZero(_evaluation.ev1, _evaluation.ev2, _evaluation.ev3);
+    this->_evaluations = _evaluation;
     this->mas1.push_back(_evaluation.ev1);
     this->mas2.push_back(_evaluation.ev2);
     this->mas3.push_back(_evaluation.ev3);
@@ -137,11 +138,36 @@ Student::Student() : Student("Fedko", "Vasya", "Vasilievich",
 {
 }
 
+Student::Student(const Student& student)
+{
+    this->SetSurame(student.GetSurname());
+    this->SetName(student.GetName());
+    this->SetPatronymic(student.GetPatronymic());
+    this->SetBirthday(student.birthday);
+    this->SetAdress(student.GetAdress());
+    this->SetPhone(student.phone);
+    this->SetEvaluations(student._evaluations);
+}
+
 Student::~Student()
 {
-    cout << "DEST\n";
-    delete[]this->name;
-    delete[]this->surname;
-    delete[]this->patronymic;
-    delete[]this->adress;
+    static int count = 1;
+    cout << "DEST " << count << endl; // problem
+    if (this->name != nullptr)
+    {
+        delete[]this->name;
+    }
+    if (this->surname != nullptr)
+    {
+        delete[]this->surname;
+    }
+    if (this->patronymic != nullptr)
+    {
+        delete[]this->patronymic;
+    }
+    if (this->adress != nullptr)
+    {
+        delete[]this->adress;
+    }
+    ++count;
 }

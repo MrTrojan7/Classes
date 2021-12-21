@@ -11,8 +11,16 @@ int main()
 	Student student2("Ivanov", "Ivan", "Ivanovich", { 11, 12, 2000 }, "Gaidara 22", { 11111111, 222222, 333 }, { 9, 9, 9 });
 	student2.SetEvaluations({ 8, 8, 8 });
 	student2.Show();*/
+
+	//Student ax[5];
 	Group a;
+	//a.AddStudents(ax, 5);
 	a.ShowAllStudents();
+	Group b;
+
+	a = b;
+	b.ShowAllStudents();
+	//ax[2].Show();
 
 	return 0;
 }

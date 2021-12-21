@@ -1,7 +1,7 @@
 #pragma once
 #include "AllLibraries.h"
 #include "Student.h"
-class Group
+class Group:public Student
 {
 private:
 	Student* _student;
@@ -13,20 +13,25 @@ public:
 	Group();
 	Group(unsigned int quantity);
 	Group(const char* name, const char* specialization,
-		unsigned int course, unsigned int quantity);
-	Group(const Group &group);
+		const unsigned int course, const unsigned int quantity);
+	Group(const Group& group);
+	//Group operator = (const Group& group);
 	void SetNameOfGroup(const char* name);
 	void SetSpecializationOfGroup(const char* specialization);
 	void SetQuantity(unsigned int quantity);
 	void SetCourse(unsigned int course);
-	void ShowAllStudents() const;
-	void AddStudent(Student& student, int index);
+	const void ShowAllStudents() const;
+	void AddStudents(Student student);
 	static void EditingGroup(Group& group);
 	static void Compozition(Group& group1, Group& group2);
 	static void Transfer(Group& group1, Group& group2);
 	void OnceExpulsion();
 	void ALotOfExpulsion();
 	void SortSurname();
+	const unsigned int GetQuantity() const;
+	const char* const GetName() const;
+	const unsigned int const GetCourse() const;
+	const char* const GetSpecialization() const;
 	~Group();
 };
 
