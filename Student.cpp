@@ -139,7 +139,7 @@ Student::Student() : Student("Fedko", "Vasya", "Vasilievich",
 
 Student::~Student()
 {
-    //cout << "DEST\n";
+    cout << "DEST\n";
     delete[]this->name;
     delete[]this->surname;
     delete[]this->patronymic;
