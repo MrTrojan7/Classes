@@ -13,13 +13,16 @@ int main()
 	student2.Show();*/
 
 	//Student ax[5];
-	Group a;
+	//Group a;
 	//a.AddStudents(ax, 5);
-	a.ShowAllStudents();
-	Group b;
-
-	a = b;
-	b.ShowAllStudents();
+	//a.ShowAllStudents();
+	//Group b;
+	Student s;
+	s.Show();
+	Student a;
+	a.Show();
+	//a = b;
+	//b.ShowAllStudents();
 	//ax[2].Show();
 
 	return 0;
