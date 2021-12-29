@@ -84,6 +84,8 @@ void PHONE::SetWorkNum(const int work)
 
 void Student::SetSurame(const char* surname)
 {
+    if (!surname || strlen(surname) == 0)
+        return;
     if (this->surname != nullptr)
     {
         delete[] this->surname;
@@ -94,6 +96,8 @@ void Student::SetSurame(const char* surname)
 
 void Student::SetName(const char* name)
 {
+    if (!name || strlen(name) == 0)
+        return;
     if (this->name != nullptr)
     {
         delete[] this->name;
@@ -105,6 +109,8 @@ void Student::SetName(const char* name)
 
 void Student::SetPatronymic(const char* patronymic)
 {
+    if (!patronymic || strlen(patronymic) == 0)
+        return;
     if (this->patronymic != nullptr)
     {
         delete[] this->patronymic;
@@ -124,6 +130,8 @@ void Student::SetBirthday(Date _birthday)
 
 void Student::SetAdress(const char* adress)
 {
+    if (!adress || strlen(adress) == 0)
+        return;
     if (this->adress != nullptr)
     {
         delete[] this->adress;
@@ -235,6 +243,11 @@ Student::Student() : Student("Fedko", "Vasya", "Vasilievich",
 {
 }
 
+Student::Student(const char* Surname, const char* Name) : Student(Surname, Name, "Vasilievich",
+    { 1, 1, 2000 }, "Chernyahovskogo 2", { 123456789 ,12345, 123 }, 12, 11, 10)
+{
+}
+
 Student::Student(const Student& student)
 {
     this->SetSurame(student.GetSurname());
@@ -244,14 +257,26 @@ Student::Student(const Student& student)
     this->SetAdress(student.GetAdress());
     this->SetPhone(student.phone);
     this->mas1.assign(student.mas1.begin(), student.mas1.end());
-    this->mas2.assign(student.mas2.begin(), student.mas3.end());
-    this->mas2.assign(student.mas2.begin(), student.mas3.end());
+    this->mas2.assign(student.mas2.begin(), student.mas2.end());
+    this->mas3.assign(student.mas3.begin(), student.mas3.end());
 }
+
+//Student& Student::operator = (Student& student)
+//{
+//    this->SetSurame(student.GetSurname());
+//    this->SetName(student.GetName());
+//    this->SetPatronymic(student.GetPatronymic());
+//    this->SetBirthday(student.birthday);
+//    this->SetAdress(student.GetAdress());
+//    this->SetPhone(student.phone);
+//    this->mas1.assign(student.mas1.begin(), student.mas1.end());
+//    this->mas2.assign(student.mas2.begin(), student.mas2.end());
+//    this->mas3.assign(student.mas3.begin(), student.mas3.end());
+//    return student;
+//}
 
 Student::~Student()
 {
-    //static int count = 1;
-    cout << "DEST " << endl;
     if (name != nullptr)
     {
         delete[]name;
@@ -268,5 +293,4 @@ Student::~Student()
     {
         delete[]adress;
     }
-    //++count;
 }

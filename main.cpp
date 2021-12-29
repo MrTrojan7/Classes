@@ -17,12 +17,16 @@ int main()
 	//a.AddStudents(ax, 5);
 	//a.ShowAllStudents();
 	//Group b;
-	Student s;
+	/*Student s("Ivanov", "Ivan", "Ivanovich", { 11, 12, 2000 }, "Gaidara 22", { 11111111, 222222, 333 }, 9, 9, 9 );
 	s.Show();
-	Student a;
+	Student a = s;
 	a.Show();
+	Student b;
+	b.Show();*/
+	Group ax;
+
 	//a = b;
-	//b.ShowAllStudents();
+	ax.ShowAllStudents();
 	//ax[2].Show();
 
 	return 0;

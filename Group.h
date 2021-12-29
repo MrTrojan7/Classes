@@ -4,10 +4,10 @@
 class Group
 {
 private:
-	Student* _student;
+	Student* _student = nullptr;
 	unsigned int _quantity;
-	char* _name;
-	char* _specialization;
+	char* _name = nullptr;
+	char* _specialization = nullptr;
 	unsigned int _course;
 	void SetQuantity(unsigned int quantity);
 public:
@@ -34,4 +34,3 @@ public:
 	const char* const GetSpecialization() const;
 	~Group();
 };
-

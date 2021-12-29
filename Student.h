@@ -36,11 +36,11 @@ public:
 class Student
 {
 private:
-    char* surname;
-    char* name;
-    char* patronymic;
+    char* surname = nullptr;
+    char* name = nullptr;
+    char* patronymic = nullptr;
     Date birthday;
-    char* adress;
+    char* adress = nullptr;
     PHONE phone;
     vector<int> mas1;
     vector<int> mas2;
@@ -63,9 +63,10 @@ public:
     void GetGrades(const vector <int> mas) const;
     int GetPhone(const int phone) const;
     bool GetCheckZero(int val1, int val2, int val3) const;
-
+    //Student& operator = (Student& student);
     void Show();
     Student();
+    Student(const char* Surname, const char* Name);
     Student(const char* Surname, const char* Name, 
         const char* Patronymic, Date _Birthday, 
         const char* Adress, PHONE Phone, 
@@ -73,6 +74,3 @@ public:
     Student(const Student& student);
     ~Student();
 };
-
-
-

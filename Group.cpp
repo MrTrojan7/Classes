@@ -7,10 +7,10 @@ Group::Group(unsigned int quantity): Group("SPU121", "Programming", 1, quantity)
 Group::Group(const char* name, const char* specialization, 
 	const unsigned int course, const unsigned int quantity)
 {
-	if (this->_student != nullptr)
-	{
-		delete[]this->_student;
-	}
+	//if (this->_student != nullptr)
+	//{
+	//	delete[]this->_student;
+	//}
 	SetNameOfGroup(name);
 	SetSpecializationOfGroup(specialization);
 	SetQuantity(quantity);
@@ -22,12 +22,24 @@ Group::Group (const Group& group) : Group(group._name, group._specialization, gr
 
 void Group::SetNameOfGroup(const char* name)
 {
+	if (!name || strlen(name) == 0)
+		return;
+	if (this->_name != nullptr)
+	{
+		delete[] this->_name;
+	}
 	this->_name = new char[strlen(name) + 1];
 	strcpy_s(this->_name, strlen(name) + 1, name);
 }
 
 void Group::SetSpecializationOfGroup(const char* specialization)
 {
+	if (!specialization || strlen(specialization) == 0)
+		return;
+	if (this->_specialization != nullptr)
+	{
+		delete[] this->_specialization;
+	}
 	this->_specialization = new char[strlen(specialization) + 1];
 	strcpy_s(this->_specialization, strlen(specialization) + 1, specialization);
 }
@@ -50,8 +62,16 @@ const void Group::ShowAllStudents() const
 	cout << "Quantity: " << GetQuantity() << endl;
 	for (int i = 0; i < GetQuantity(); i++)
 	{
-		this->_student[i].Show();
-		cout << endl;
+		cout << this->_student[i].GetSurname() << "\n";
+		cout << this->_student[i].GetName() << "\n";
+	}
+}
+
+void Group::SortSurname()
+{
+	for (int i = 0; i < GetQuantity(); i++)
+	{
+
 	}
 }
 
@@ -77,7 +97,6 @@ const char* const Group::GetSpecialization() const
 
 Group::~Group()
 {
-	cout << "Group Dest!\n";
 	if (_student != nullptr)
 		delete[]_student;
 	if (_specialization != nullptr)
