@@ -18,16 +18,16 @@ public:
 	Group(const Group& group);
 	void SetNameOfGroup(const char* name);
 	void SetSpecializationOfGroup(const char* specialization);
-
 	void SetCourse(unsigned int course);
+
 	const void ShowAllStudents() const;
-	void AddStudents(Student student);
+	void AddStudents(Student& student);
 	static void EditingGroup(Group& group);
 	static void Compozition(Group& group1, Group& group2);
 	static void Transfer(Group& group1, Group& group2);
 	void OnceExpulsion();
 	void ALotOfExpulsion();
-	void SortSurname();
+	void SortGroup();
 	const unsigned int GetQuantity() const;
 	const char* const GetName() const;
 	const unsigned int const GetCourse() const;

@@ -8,4 +8,5 @@
 #include <ctime>
 #include <vector>
 #include <exception>
+#include <cstring> 
 using namespace std;

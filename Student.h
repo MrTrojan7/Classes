@@ -63,7 +63,7 @@ public:
     void GetGrades(const vector <int> mas) const;
     int GetPhone(const int phone) const;
     bool GetCheckZero(int val1, int val2, int val3) const;
-    //Student& operator = (Student& student);
+    bool operator > (const Student& student);
     void Show();
     Student();
     Student(const char* Surname, const char* Name);

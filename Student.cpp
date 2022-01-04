@@ -198,6 +198,26 @@ bool Student::GetCheckZero(int val1, int val2, int val3) const
     return true;
 }
 
+bool Student::operator>(const Student& student)
+{
+    for (int i = 0; i < strlen(this->surname); i++)
+    {
+        if (this->surname[i] > student.surname[i])
+        {
+            return true;
+        }
+        else if (this->surname[i] == student.surname[i])
+        {
+            continue;
+        }
+        else if (this->surname[i] < student.surname[i])
+        {
+            return false;
+        }
+    }
+    return false;
+}
+
 int Student::GetPhone(int phone) const
 {
     return phone;
@@ -261,36 +281,14 @@ Student::Student(const Student& student)
     this->mas3.assign(student.mas3.begin(), student.mas3.end());
 }
 
-//Student& Student::operator = (Student& student)
-//{
-//    this->SetSurame(student.GetSurname());
-//    this->SetName(student.GetName());
-//    this->SetPatronymic(student.GetPatronymic());
-//    this->SetBirthday(student.birthday);
-//    this->SetAdress(student.GetAdress());
-//    this->SetPhone(student.phone);
-//    this->mas1.assign(student.mas1.begin(), student.mas1.end());
-//    this->mas2.assign(student.mas2.begin(), student.mas2.end());
-//    this->mas3.assign(student.mas3.begin(), student.mas3.end());
-//    return student;
-//}
-
 Student::~Student()
 {
     if (name != nullptr)
-    {
         delete[]name;
-    }
     if (surname != nullptr)
-    {
         delete[]surname;
-    }
     if (patronymic != nullptr)
-    {
         delete[]patronymic;
-    }
     if (adress != nullptr)
-    {
         delete[]adress;
-    }
 }

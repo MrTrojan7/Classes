@@ -16,17 +16,21 @@ int main()
 	//Group a;
 	//a.AddStudents(ax, 5);
 	//a.ShowAllStudents();
-	//Group b;
-	/*Student s("Ivanov", "Ivan", "Ivanovich", { 11, 12, 2000 }, "Gaidara 22", { 11111111, 222222, 333 }, 9, 9, 9 );
-	s.Show();
-	Student a = s;
-	a.Show();
-	Student b;
-	b.Show();*/
-	Group ax;
+	Group spu;
+	Student a("Ivanov", "Ivan", "Ivanovich", { 11, 12, 2000 }, "Gaidara 22", { 11111111, 222222, 333 }, 9, 9, 9 );
+	//a.Show();
+	Student b("Karataev", "Yurij");
+	Student c("Grishchuk", "Dmitriy");
+	Student d("Orlov", "Stanislav");
+	spu.AddStudents(a);
+	spu.AddStudents(b);
+	spu.AddStudents(c);
+	spu.AddStudents(d);
+	spu.ShowAllStudents();
+	//Group ax(4);
 
 	//a = b;
-	ax.ShowAllStudents();
+	//ax.ShowAllStudents();
 	//ax[2].Show();
 
 	return 0;

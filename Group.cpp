@@ -1,21 +1,20 @@
 #include "Group.h"
 
-Group::Group() : Group("SPU121", "Programming", 1, 4){}
+Group::Group() : Group("SPU121", "Programming", 1, 0){}
 
 Group::Group(unsigned int quantity): Group("SPU121", "Programming", 1, quantity){}
 
 Group::Group(const char* name, const char* specialization, 
 	const unsigned int course, const unsigned int quantity)
 {
-	//if (this->_student != nullptr)
-	//{
-	//	delete[]this->_student;
-	//}
 	SetNameOfGroup(name);
 	SetSpecializationOfGroup(specialization);
 	SetQuantity(quantity);
 	SetCourse(course);
-	this->_student = new Student[GetQuantity()]; //lost time...
+	if (GetQuantity() > 0)
+	{
+		this->_student = new Student[GetQuantity()];
+	}
 }
 
 Group::Group (const Group& group) : Group(group._name, group._specialization, group._course, group._quantity){}
@@ -60,18 +59,56 @@ const void Group::ShowAllStudents() const
 	cout << "Specialization: " << GetSpecialization() << endl;
 	cout << "Course: " << GetCourse() << endl;
 	cout << "Quantity: " << GetQuantity() << endl;
-	for (int i = 0; i < GetQuantity(); i++)
+	if (GetQuantity() > 0)
 	{
-		cout << this->_student[i].GetSurname() << "\n";
-		cout << this->_student[i].GetName() << "\n";
+		for (int i = 0; i < GetQuantity(); i++)
+		{
+			cout << this->_student[i].GetSurname() << "\n";
+			cout << this->_student[i].GetName() << "\n";
+		}
 	}
 }
 
-void Group::SortSurname()
+void Group::AddStudents(Student& student) // проблема с выделением памяти...
+{
+	Student* tmp = new Student[GetQuantity() + 1];
+	
+	if (!GetQuantity())
+	{
+		this->_student = new Student[GetQuantity() + 1];
+	}
+	if (GetQuantity())
+	{
+		for (int i = 0; i < GetQuantity(); i++)
+		{
+			tmp[i] = _student[i];
+		}
+		//tmp[GetQuantity() + 1] = student;
+	}
+	tmp[GetQuantity()] = student;
+	SetQuantity(GetQuantity() + 1);
+	if (_student != nullptr)
+		delete[] _student;
+	_student = tmp;
+}
+
+void Group::SortGroup()
 {
 	for (int i = 0; i < GetQuantity(); i++)
 	{
-
+		bool flag = true;
+		for (int j = 0; j < GetQuantity(); j++)
+		{
+			if (_student[j] > _student[j + 1])
+			{
+				flag = false;
+				swap(_student[j], _student[j + 1]);
+			}
+		}
+		if (flag)
+		{
+			break;
+		}
 	}
 }
 
