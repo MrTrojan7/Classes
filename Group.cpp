@@ -29,6 +29,7 @@ void Group::SetNameOfGroup(const char* name)
 	}
 	this->_name = new char[strlen(name) + 1];
 	strcpy_s(this->_name, strlen(name) + 1, name);
+	name = _name;
 }
 
 void Group::SetSpecializationOfGroup(const char* specialization)
@@ -69,10 +70,39 @@ const void Group::ShowAllStudents() const
 	}
 }
 
-void Group::AddStudents(Student& student) // проблема с выделением памяти...
+void Group::EditingGroup(const char* name, const char* specialization,
+	const unsigned int course)
+{
+	SetNameOfGroup(name);
+	SetSpecializationOfGroup(specialization);
+	SetCourse(course);
+}
+
+void Group::Transfer(Group& group1, Group& group2)
+{
+}
+
+void Group::Merge(Group& group) // в параметры передается группа, которую мержим и удаляем
+{
+	Student* tmp = new Student[group._quantity + GetQuantity()];
+	for (int i = 0; i < this->GetQuantity(); i++)
+	{
+		tmp[i] = this->_student[i];
+	}
+	for (int i = 0; i < group.GetQuantity(); i++)
+	{
+		tmp[i + this->GetQuantity()] = group._student[i];
+	}
+	SetQuantity(group._quantity + GetQuantity());
+	group.~Group();
+	if (this->_student != nullptr)
+		delete[] this->_student;
+	this->_student = tmp;
+}
+
+void Group::AddStudents(Student& student) 
 {
 	Student* tmp = new Student[GetQuantity() + 1];
-	
 	if (!GetQuantity())
 	{
 		this->_student = new Student[GetQuantity() + 1];
@@ -81,15 +111,15 @@ void Group::AddStudents(Student& student) // проблема с выделением памяти...
 	{
 		for (int i = 0; i < GetQuantity(); i++)
 		{
-			tmp[i] = _student[i];
+			tmp[i] = this->_student[i];
 		}
-		//tmp[GetQuantity() + 1] = student;
 	}
 	tmp[GetQuantity()] = student;
 	SetQuantity(GetQuantity() + 1);
-	if (_student != nullptr)
-		delete[] _student;
-	_student = tmp;
+	
+	if (this->_student != nullptr)
+		delete[] this->_student;
+	this->_student = tmp;
 }
 
 void Group::SortGroup()
@@ -99,10 +129,13 @@ void Group::SortGroup()
 		bool flag = true;
 		for (int j = 0; j < GetQuantity(); j++)
 		{
-			if (_student[j] > _student[j + 1])
+			if ((j + 1) < GetQuantity())
 			{
-				flag = false;
-				swap(_student[j], _student[j + 1]);
+				if (_student[j] > _student[j + 1])
+				{
+					flag = false;
+					swap(_student[j], _student[j + 1]); //убрать
+				}
 			}
 		}
 		if (flag)

@@ -22,8 +22,9 @@ public:
 
 	const void ShowAllStudents() const;
 	void AddStudents(Student& student);
-	static void EditingGroup(Group& group);
-	static void Compozition(Group& group1, Group& group2);
+	void EditingGroup(const char* name, const char* specialization,
+		const unsigned int course);
+	void Merge(Group& group);
 	static void Transfer(Group& group1, Group& group2);
 	void OnceExpulsion();
 	void ALotOfExpulsion();

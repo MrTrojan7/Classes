@@ -218,6 +218,19 @@ bool Student::operator>(const Student& student)
     return false;
 }
 
+void Student::operator=(const Student& student)
+{
+    this->SetSurame(student.GetSurname());
+    this->SetName(student.GetName());
+    this->SetPatronymic(student.GetPatronymic());
+    this->SetBirthday(student.birthday);
+    this->SetAdress(student.GetAdress());
+    this->SetPhone(student.phone);
+    this->mas1.assign(student.mas1.begin(), student.mas1.end());
+    this->mas2.assign(student.mas2.begin(), student.mas2.end());
+    this->mas3.assign(student.mas3.begin(), student.mas3.end());
+}
+
 int Student::GetPhone(int phone) const
 {
     return phone;
@@ -268,18 +281,20 @@ Student::Student(const char* Surname, const char* Name) : Student(Surname, Name,
 {
 }
 
-Student::Student(const Student& student)
-{
-    this->SetSurame(student.GetSurname());
-    this->SetName(student.GetName());
-    this->SetPatronymic(student.GetPatronymic());
-    this->SetBirthday(student.birthday);
-    this->SetAdress(student.GetAdress());
-    this->SetPhone(student.phone);
-    this->mas1.assign(student.mas1.begin(), student.mas1.end());
-    this->mas2.assign(student.mas2.begin(), student.mas2.end());
-    this->mas3.assign(student.mas3.begin(), student.mas3.end());
-}
+//Student::Student(const Student& student)/* : Student(student.surname, student.name,
+//    student.patronymic, student.birthday, student.adress, student.phone,
+//    student.mas1[0], student.mas2[0], student.mas3[0])*/
+//{
+//    this->SetSurame(student.GetSurname());
+//    this->SetName(student.GetName());
+//    this->SetPatronymic(student.GetPatronymic());
+//    this->SetBirthday(student.birthday);
+//    this->SetAdress(student.GetAdress());
+//    this->SetPhone(student.phone);
+//    this->mas1.assign(student.mas1.begin(), student.mas1.end());
+//    this->mas2.assign(student.mas2.begin(), student.mas2.end());
+//    this->mas3.assign(student.mas3.begin(), student.mas3.end());
+//}
 
 Student::~Student()
 {

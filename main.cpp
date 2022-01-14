@@ -20,6 +20,7 @@ int main()
 	Student a("Ivanov", "Ivan", "Ivanovich", { 11, 12, 2000 }, "Gaidara 22", { 11111111, 222222, 333 }, 9, 9, 9 );
 	//a.Show();
 	Student b("Karataev", "Yurij");
+	//b.Show();
 	Student c("Grishchuk", "Dmitriy");
 	Student d("Orlov", "Stanislav");
 	spu.AddStudents(a);
@@ -27,9 +28,14 @@ int main()
 	spu.AddStudents(c);
 	spu.AddStudents(d);
 	spu.ShowAllStudents();
+	spu.SortGroup();
+	spu.ShowAllStudents();
+
 	//Group ax(4);
 
-	//a = b;
+	/*a = b;
+	a.Show();
+	b.Show();*/
 	//ax.ShowAllStudents();
 	//ax[2].Show();
 
