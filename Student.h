@@ -61,9 +61,12 @@ public:
     void GetBirthday(const Date date) const;
     char* GetAdress() const;
     void GetGrades(const vector <int> mas) const;
+    bool const GetExpulsion(const vector <int> mas, const unsigned int criterion) const;
     int GetPhone(const int phone) const;
     bool GetCheckZero(int val1, int val2, int val3) const;
-    bool operator > (const Student& student);
+    void EditingStudent();
+    bool operator > (const Student& student)const;
+    bool operator < (const Student& student) const;
     void operator = (const Student& student);
     void Show();
     Student();
@@ -72,6 +75,6 @@ public:
         const char* Patronymic, Date _Birthday, 
         const char* Adress, PHONE Phone, 
         const int val1, const int val2, const int val3);
-    //Student(const Student& student);
+    Student(const Student& student);
     ~Student();
 };

@@ -1,5 +1,7 @@
 #include "Student.h"
 
+/////////////////// Date /////////////////
+
 Date::Date() : Date(12, 01, 2001)
 {
 }
@@ -40,6 +42,8 @@ void Date::SetYear(const int year)
 {
     this->year = year;
 }
+
+/////////////////// Phone /////////////////
 
 PHONE::PHONE() : PHONE(1232123, 7777, 333) {}
 
@@ -181,12 +185,24 @@ char* Student::GetAdress() const
     return  adress;
 }
 
-void Student::GetGrades(const vector <int> mas) const
+void Student::GetGrades(const vector <int> mas) const // для метода Show
 {
     for (size_t i = 0; i < mas.size(); i++)
     {
         cout << mas[i] << " ";
     }
+}
+
+bool const Student::GetExpulsion(const vector<int> mas, const unsigned int criterion) const // для отчисления
+{ 
+    for (size_t i = 0; i < mas.size(); i++)
+    {
+        if (mas[i] <= criterion)
+        {
+            return true;
+        }
+    }
+    return false;
 }
 
 bool Student::GetCheckZero(int val1, int val2, int val3) const
@@ -198,7 +214,24 @@ bool Student::GetCheckZero(int val1, int val2, int val3) const
     return true;
 }
 
-bool Student::operator>(const Student& student)
+void Student::EditingStudent() // редактирование данных о студенте
+{
+    string tmp;
+    cout << "Enter new surname: ";
+    cin >> tmp;
+    SetSurame(tmp.c_str());
+    cout << "Enter new name: ";
+    cin >> tmp;
+    SetName(tmp.c_str());
+    cout << "Enter new patronymic: ";
+    cin >> tmp;
+    SetPatronymic(tmp.c_str());
+    cout << "Enter new adress: ";
+    cin >> tmp;
+    SetAdress(tmp.c_str());
+}
+
+bool Student::operator>(const Student& student) const // оператор перегрузки >
 {
     for (int i = 0; i < strlen(this->surname); i++)
     {
@@ -218,7 +251,21 @@ bool Student::operator>(const Student& student)
     return false;
 }
 
-void Student::operator=(const Student& student)
+bool Student::operator<(const Student& student) const 
+    // оператор перегрузки < (делегирование к >)
+    // попытка избежания повтороного использования кода =)
+{
+    if (operator>(student))
+    {
+        return false;
+    }
+    else if(!operator>(student)) // ?? если просто "else" - хочет точку с запятой в конце условия 
+    {
+        return true;
+    }
+}
+
+void Student::operator=(const Student& student) // оператор перегрузки =
 {
     this->SetSurame(student.GetSurname());
     this->SetName(student.GetName());
@@ -236,7 +283,7 @@ int Student::GetPhone(int phone) const
     return phone;
 }
 
-void Student::Show()
+void Student::Show() // отображение подробных данных о студенте
 {
     cout << "Surname: " << GetSurname() << "\n";
     cout << "Name: " << GetName() << "\n";
@@ -260,7 +307,7 @@ void Student::Show()
 
 Student::Student(const char* Surname, const char* Name, 
     const char* Patronymic, Date _Birthday,
-    const char* Adress, PHONE _Phone, const int val1, const int val2, const int val3)
+    const char* Adress, PHONE _Phone, const int val1, const int val2, const int val3) // главный конструктор
 {
     SetSurame(Surname);
     SetName(Name); 
@@ -272,38 +319,49 @@ Student::Student(const char* Surname, const char* Name,
 }
 
 Student::Student() : Student("Fedko", "Vasya", "Vasilievich",
-    { 1, 1, 2000 }, "Chernyahovskogo 2", { 123456789 ,12345, 123 }, 12, 11, 10 )
+    { 1, 1, 2000 }, "Chernyahovskogo 2", { 123456789 ,12345, 123 }, 12, 11, 10 )// конструктор по умолчанию
 {
 }
 
 Student::Student(const char* Surname, const char* Name) : Student(Surname, Name, "Vasilievich",
-    { 1, 1, 2000 }, "Chernyahovskogo 2", { 123456789 ,12345, 123 }, 12, 11, 10)
+    { 1, 1, 2000 }, "Chernyahovskogo 2", { 123456789 ,12345, 123 }, 12, 11, 10) // конструктор с двумя параметрами
 {
 }
 
-//Student::Student(const Student& student)/* : Student(student.surname, student.name,
-//    student.patronymic, student.birthday, student.adress, student.phone,
-//    student.mas1[0], student.mas2[0], student.mas3[0])*/
-//{
-//    this->SetSurame(student.GetSurname());
-//    this->SetName(student.GetName());
-//    this->SetPatronymic(student.GetPatronymic());
-//    this->SetBirthday(student.birthday);
-//    this->SetAdress(student.GetAdress());
-//    this->SetPhone(student.phone);
-//    this->mas1.assign(student.mas1.begin(), student.mas1.end());
-//    this->mas2.assign(student.mas2.begin(), student.mas2.end());
-//    this->mas3.assign(student.mas3.begin(), student.mas3.end());
-//}
-
-Student::~Student()
+Student::Student(const Student& student) // конструктор копирования
 {
+    this->SetSurame(student.GetSurname());
+    this->SetName(student.GetName());
+    this->SetPatronymic(student.GetPatronymic());
+    this->SetBirthday(student.birthday);
+    this->SetAdress(student.GetAdress());
+    this->SetPhone(student.phone);
+    this->mas1.assign(student.mas1.begin(), student.mas1.end());
+    this->mas2.assign(student.mas2.begin(), student.mas2.end());
+    this->mas3.assign(student.mas3.begin(), student.mas3.end());
+}
+
+Student::~Student() // деструктор
+{
+    // если не ошибаюсь, была рекомендация после delete[] записывать в указатель nullptr =)
     if (name != nullptr)
+    {
         delete[]name;
+        name = nullptr;
+    }
     if (surname != nullptr)
+    {
         delete[]surname;
+        surname = nullptr;
+    }
     if (patronymic != nullptr)
+    {
         delete[]patronymic;
+        patronymic = nullptr;
+    }
     if (adress != nullptr)
+    {
         delete[]adress;
+        adress = nullptr;
+    }
 }

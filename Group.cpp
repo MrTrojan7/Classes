@@ -1,11 +1,11 @@
 #include "Group.h"
 
-Group::Group() : Group("SPU121", "Programming", 1, 0){}
+Group::Group() : Group("SPU121", "Programming", 1, 0){} // конструктор по умолчанию (пустая группа)
 
-Group::Group(unsigned int quantity): Group("SPU121", "Programming", 1, quantity){}
+Group::Group(unsigned int quantity): Group("SPU121", "Programming", 1, quantity){} // конструктор с одним параметром (создаётся массив студентов)
 
 Group::Group(const char* name, const char* specialization, 
-	const unsigned int course, const unsigned int quantity)
+	const unsigned int course, const unsigned int quantity) // главный конструктор
 {
 	SetNameOfGroup(name);
 	SetSpecializationOfGroup(specialization);
@@ -17,7 +17,23 @@ Group::Group(const char* name, const char* specialization,
 	}
 }
 
-Group::Group (const Group& group) : Group(group._name, group._specialization, group._course, group._quantity){}
+Group::Group (const Group& group) 
+// конструктор копирования (переделал немного, так как при делегировании в главный конструктор не сохраняются сами студенты, а создаются новые)
+{
+	SetNameOfGroup(group._name);
+	SetSpecializationOfGroup(group._specialization);
+	SetQuantity(group._quantity);
+	SetCourse(group._course);
+	if (GetQuantity() > 0)
+	{
+		this->_student = new Student[GetQuantity()];
+		for (int i = 0; i < GetQuantity(); i++)
+		{
+			this->_student[i] = group._student[i];
+		}
+	}
+} 
+
 
 void Group::SetNameOfGroup(const char* name)
 {
@@ -54,7 +70,7 @@ void Group::SetCourse(unsigned int course)
 	this->_course = course;
 }
 
-const void Group::ShowAllStudents() const
+const void Group::ShowAllStudents() const // показ информации о группе и (при наличии) студентов
 {
 	cout << "\nName of group: " << GetName() << endl;
 	cout << "Specialization: " << GetSpecialization() << endl;
@@ -64,22 +80,59 @@ const void Group::ShowAllStudents() const
 	{
 		for (int i = 0; i < GetQuantity(); i++)
 		{
-			cout << this->_student[i].GetSurname() << "\n";
+			cout << (i + 1) << ") " << this->_student[i].GetSurname() << "\n";
 			cout << this->_student[i].GetName() << "\n";
 		}
 	}
 }
 
-void Group::EditingGroup(const char* name, const char* specialization,
+void Group::EditingGroup(const char* name, const char* specialization, // редактирование группы и студента
 	const unsigned int course)
 {
 	SetNameOfGroup(name);
 	SetSpecializationOfGroup(specialization);
 	SetCourse(course);
+	if (GetQuantity())
+	{
+		unsigned int num;
+		do
+		{
+			cout << "Enter number of student:\n";
+			cin >> num;
+		} while (num <= 0 || num >= GetQuantity());
+		_student[--num].EditingStudent();
+	}
 }
 
-void Group::Transfer(Group& group1, Group& group2)
+void Group::Transfer(Group& group1, Group& group2) // перевод студента из одной группы в другую
 {
+	if (group1.GetQuantity())
+	{
+		unsigned int num;
+		do
+		{
+			cout << "Enter number of student for transfer:\n";
+			cin >> num;
+		} while (num <= 0 || num >= group1.GetQuantity());
+		group2.AddStudents(group1._student[--num]);
+		Student* tmp = new Student[group1.GetQuantity() - 1];
+		group1.SetQuantity(group1.GetQuantity() - 1);
+		bool flag = false;
+		for (int i = 0; i < group1.GetQuantity(); i++)
+		{
+			if (i == num)
+			{
+				flag = true;
+			}
+			tmp[i] = group1._student[i + flag];
+		}
+		if (group1._student != nullptr)
+		{
+			delete[] group1._student;
+			group1._student = nullptr;
+		}
+		group1._student = tmp;
+	}
 }
 
 void Group::Merge(Group& group) // в параметры передается группа, которую мержим и удаляем
@@ -100,7 +153,21 @@ void Group::Merge(Group& group) // в параметры передается группа, которую мержим
 	this->_student = tmp;
 }
 
-void Group::AddStudents(Student& student) 
+void Group::OnceExpulsion() // 
+{
+	for (int i = 0; i < GetQuantity(); i++)
+	{
+		
+	}
+}
+
+void Group::ALotOfExpulsion()
+{
+
+}
+
+
+void Group::AddStudents(Student& student) // добавление студента
 {
 	Student* tmp = new Student[GetQuantity() + 1];
 	if (!GetQuantity())
@@ -116,13 +183,12 @@ void Group::AddStudents(Student& student)
 	}
 	tmp[GetQuantity()] = student;
 	SetQuantity(GetQuantity() + 1);
-	
 	if (this->_student != nullptr)
 		delete[] this->_student;
 	this->_student = tmp;
 }
 
-void Group::SortGroup()
+void Group::SortGroup() // сортировка группы 
 {
 	for (int i = 0; i < GetQuantity(); i++)
 	{
@@ -131,10 +197,13 @@ void Group::SortGroup()
 		{
 			if ((j + 1) < GetQuantity())
 			{
-				if (_student[j] > _student[j + 1])
+				if (_student[j] > _student[(j + 1)])
 				{
 					flag = false;
-					swap(_student[j], _student[j + 1]); //убрать
+					Student tmp;
+					tmp = _student[j];
+					_student[j] = _student[(j + 1)];
+					_student[j + 1] = tmp;
 				}
 			}
 		}
@@ -165,12 +234,23 @@ const char* const Group::GetSpecialization() const
 	return this->_specialization;
 }
 
-Group::~Group()
+Group::~Group() // деструктор
 {
+	// если не ошибаюсь, была рекомендация после delete[] записывать в указатель nullptr =)
 	if (_student != nullptr)
+	{
 		delete[]_student;
+		_student = nullptr;
+	}
+
 	if (_specialization != nullptr)
+	{
 		delete[]_specialization;
+		_specialization = nullptr;
+	}
 	if (_name != nullptr)
+	{
 		delete[]_name;
+		_name = nullptr;
+	}
 }

@@ -13,11 +13,8 @@ int main()
 	student2.Show();*/
 
 	//Student ax[5];
-	//Group a;
-	//a.AddStudents(ax, 5);
-	//a.ShowAllStudents();
 	Group spu;
-	Student a("Ivanov", "Ivan", "Ivanovich", { 11, 12, 2000 }, "Gaidara 22", { 11111111, 222222, 333 }, 9, 9, 9 );
+	Student a("Ivanov", "Ivan", "Ivanovich", { 11, 12, 2000 }, "Gaidara 22", { 11111111, 222222, 333 }, 5, 9, 9 );
 	//a.Show();
 	Student b("Karataev", "Yurij");
 	//b.Show();
@@ -28,9 +25,17 @@ int main()
 	spu.AddStudents(c);
 	spu.AddStudents(d);
 	spu.ShowAllStudents();
-	spu.SortGroup();
-	spu.ShowAllStudents();
 
+
+	//Sleep(1000);
+	system("cls");
+	Group dsu("DSU", "builders", 2, 6);
+	dsu.Transfer(spu, dsu);
+	cout << endl;
+	dsu.ShowAllStudents();
+	cout << endl;
+	spu.ShowAllStudents();
+	
 	//Group ax(4);
 
 	/*a = b;
