@@ -193,16 +193,29 @@ void Student::GetGrades(const vector <int> mas) const // для метода Show
     }
 }
 
-bool const Student::GetExpulsion(const vector<int> mas, const unsigned int criterion) const // для отчисления
+const int const Student::GetMinGrade(const vector<int> mas) // для отчисления
 { 
+    int min = mas[0];
     for (size_t i = 0; i < mas.size(); i++)
     {
-        if (mas[i] <= criterion)
+        if (mas[i] < min)
         {
-            return true;
+            min = mas[i];
         }
     }
-    return false;
+    return min;
+}
+
+int const Student::CheckGrades()
+{
+    unsigned int min = mas1[0];
+    if (GetMinGrade(mas1) < min)
+        min = GetMinGrade(mas1);
+    if (GetMinGrade(mas2) < min)
+        min = GetMinGrade(mas2);
+    if (GetMinGrade(mas3) < min)
+        min = GetMinGrade(mas3);
+    return min;
 }
 
 bool Student::GetCheckZero(int val1, int val2, int val3) const

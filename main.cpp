@@ -18,8 +18,8 @@ int main()
 	//a.Show();
 	Student b("Karataev", "Yurij");
 	//b.Show();
-	Student c("Grishchuk", "Dmitriy");
-	Student d("Orlov", "Stanislav");
+	Student c("Grishchuk", "Dmitriy", "Ivanovich", { 11, 12, 2000 }, "Gaidara 22", { 11111111, 222222, 333 }, 5, 9, 9);
+	Student d("Orlov", "Stanislav", "Ivanovich", { 11, 12, 2000 }, "Gaidara 22", { 11111111, 222222, 333 }, 5, 9, 9);
 	spu.AddStudents(a);
 	spu.AddStudents(b);
 	spu.AddStudents(c);
@@ -35,6 +35,12 @@ int main()
 	dsu.ShowAllStudents();
 	cout << endl;
 	spu.ShowAllStudents();
+	dsu.OnceExpulsion();
+	cout << endl;
+	dsu.ShowAllStudents();
+	spu.ALotOfExpulsion();
+	spu.ShowAllStudents();
+
 	
 	//Group ax(4);
 

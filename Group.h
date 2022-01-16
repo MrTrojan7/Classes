@@ -26,8 +26,11 @@ public:
 		const unsigned int course);
 	void Merge(Group& group);
 	static void Transfer(Group& group1, Group& group2);
+	void ExpulsionStudent(unsigned int num);
+	void CheckNumOfStudent(unsigned int& num);
 	void OnceExpulsion();
 	void ALotOfExpulsion();
+	void CalculationOfExpulsionStudent(unsigned int criterion);
 	void SortGroup();
 	const unsigned int GetQuantity() const;
 	const char* const GetName() const;

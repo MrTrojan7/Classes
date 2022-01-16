@@ -61,7 +61,8 @@ public:
     void GetBirthday(const Date date) const;
     char* GetAdress() const;
     void GetGrades(const vector <int> mas) const;
-    bool const GetExpulsion(const vector <int> mas, const unsigned int criterion) const;
+    const int const GetMinGrade(const vector <int> mas);
+    const int const CheckGrades();
     int GetPhone(const int phone) const;
     bool GetCheckZero(int val1, int val2, int val3) const;
     void EditingStudent();

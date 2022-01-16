@@ -94,12 +94,9 @@ void Group::EditingGroup(const char* name, const char* specialization, // редакт
 	SetCourse(course);
 	if (GetQuantity())
 	{
-		unsigned int num;
-		do
-		{
-			cout << "Enter number of student:\n";
-			cin >> num;
-		} while (num <= 0 || num >= GetQuantity());
+		unsigned int num = 0;
+		cout << "Editing\n";
+		
 		_student[--num].EditingStudent();
 	}
 }
@@ -108,30 +105,11 @@ void Group::Transfer(Group& group1, Group& group2) // перевод студента из одной 
 {
 	if (group1.GetQuantity())
 	{
-		unsigned int num;
-		do
-		{
-			cout << "Enter number of student for transfer:\n";
-			cin >> num;
-		} while (num <= 0 || num >= group1.GetQuantity());
-		group2.AddStudents(group1._student[--num]);
-		Student* tmp = new Student[group1.GetQuantity() - 1];
-		group1.SetQuantity(group1.GetQuantity() - 1);
-		bool flag = false;
-		for (int i = 0; i < group1.GetQuantity(); i++)
-		{
-			if (i == num)
-			{
-				flag = true;
-			}
-			tmp[i] = group1._student[i + flag];
-		}
-		if (group1._student != nullptr)
-		{
-			delete[] group1._student;
-			group1._student = nullptr;
-		}
-		group1._student = tmp;
+		unsigned int num = 0;
+		cout << "Transfer\n";
+		group1.CheckNumOfStudent(num);
+		group2.AddStudents(group1._student[num]);
+		group1.ExpulsionStudent(num);
 	}
 }
 
@@ -153,17 +131,75 @@ void Group::Merge(Group& group) // в параметры передается группа, которую мержим
 	this->_student = tmp;
 }
 
-void Group::OnceExpulsion() // 
+void Group::OnceExpulsion() // отчисление одного
+{
+	int min = _student[0].CheckGrades();
+	int index = 0;
+	for (int i = 0; i < GetQuantity(); i++)
+	{
+		if (_student[i].CheckGrades() < min)
+		{
+			index = i;
+			min = _student[i].CheckGrades();
+		}
+	}
+	cout << "Student " << _student[index].GetSurname() << " is expelled from university!\n";
+	ExpulsionStudent(index);
+}
+
+void Group::CalculationOfExpulsionStudent(unsigned int criterion) // отчисление всех
 {
 	for (int i = 0; i < GetQuantity(); i++)
 	{
-		
+		if (_student[i].CheckGrades() <= criterion)
+		{
+			ExpulsionStudent(i);
+		}
 	}
 }
 
-void Group::ALotOfExpulsion()
+void Group::ALotOfExpulsion() // отчисление всех, у кого оценка >= criterion - делегирование к CalculationOfExpulsionStudent
 {
+	unsigned int criterion = 6;
+	do
+	{
+		cout << "Enter criterion of grade\n"
+			"(if grade <= criterion, student will be expelled!\n"
+			"default = 6)\n";
+		cin >> criterion;
+	} while (criterion <= 0 || criterion > 12);
+	CalculationOfExpulsionStudent(criterion);
+}
 
+void Group::ExpulsionStudent(unsigned int num) // здесь происходит удаление отчисленного студента
+{
+	Student* tmp = new Student[GetQuantity() - 1];
+	SetQuantity(GetQuantity() - 1);
+	bool flag = false;
+	for (int i = 0; i < GetQuantity(); i++)
+	{
+		if (i == num)
+		{
+			flag = true;
+		}
+		tmp[i] = _student[i + flag];
+	}
+	if (_student != nullptr)
+	{
+		delete[] _student;
+		_student = nullptr;
+	}
+	_student = tmp;
+}
+
+void Group::CheckNumOfStudent(unsigned int& num) 
+{
+	do
+	{
+		cout << "Enter number of student:\n";
+		cin >> num;
+	} while (num <= 0 || num > GetQuantity());
+	--num;
 }
 
 
