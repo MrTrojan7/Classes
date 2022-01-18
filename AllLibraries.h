@@ -9,4 +9,6 @@
 #include <vector>
 #include <exception>
 #include <cstring> 
+#include <stdlib.h>
+#include <random>
 using namespace std;

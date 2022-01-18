@@ -1,27 +1,10 @@
 #pragma once
+#include "AllLibraries.h"
+template <class Arr, class Size>
+void qsortRecursive(Arr* mas, Size size);
 
-template <class T>
-
-class Sorter
-{
-private:
-	T* arr;
-	T size;
-public:
-	bool IsEmpty();
-	void SetSize(T size);
-	const T GetSize() const;
-	static void qsortRecursive(T* mas, T size);
-};
-
-template<class T>
-inline bool Sorter<T>::IsEmpty()
-{
-	return size == 0;
-}
-
-template<class T>
-inline void Sorter<T>::qsortRecursive(T* mas, T size)
+template<class Arr, class Size>
+inline void qsortRecursive(Arr* mas, Size size)
 {
     //”казатели в начало и в конец массива
     int i = 0;
