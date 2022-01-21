@@ -5,7 +5,7 @@ int main()
 {
 	srand(time(NULL));
 	int size = 100;
-	int* arr = new int[size]; //stack overflow
+	int* arr = new int[size];
 	for (int i = 0; i < size; i++)
 	{
 		arr[i] = rand() % 200 + (-100);
@@ -13,7 +13,7 @@ int main()
 	Sorter<int, int> test(arr, size);
 	test.Print(arr, size);
 	cout << endl;
-	test.qsortRecursive(arr, size);
+	test.InsertSort(arr, size);
 	test.Print(arr, size);
 	/*for (int i = 0; i < size; i++)
 	{

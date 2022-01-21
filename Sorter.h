@@ -5,14 +5,17 @@ template <class Arr, class Size>
 class Sorter
 {
 private:
-    Arr* arr;
+    Arr* arr = nullptr;
     Size size;
 public:
     Sorter(Arr* _arr, Size _size);
     ~Sorter();
     const Size GetSize() const;
     void SetSize(Size _size);
-    void qsortRecursive(Arr* arr, Size size);
+    static void BubleSort(Arr* arr, Size size);
+    static void InsertSort(Arr* arr, Size size);
+    static void SelectSort(Arr* arr, Size size);
+    static void qsortRecursive(Arr* arr, Size size);
     void Print(Arr* arr, Size size);
 };
     
@@ -20,11 +23,11 @@ template<class Arr, class Size>
 inline Sorter<Arr, Size>::Sorter(Arr* _arr, Size _size)
 {
     SetSize(_size);
-    arr = nullptr;
-   /* for (auto i = 0; i < GetSize(); i++)
+    arr = new Arr[GetSize()];
+    for (auto i = 0; i < GetSize(); i++)
     {
         arr[i] = _arr[i];
-    }*/
+    }
 }
 
 template<class Arr, class Size>
@@ -50,20 +53,59 @@ inline void Sorter<Arr, Size>::SetSize(Size _size)
 }
 
 template<class Arr, class Size>
-inline void Sorter<Arr, Size>::qsortRecursive(Arr* arr, Size size)
+inline void Sorter<Arr, Size>::BubleSort(Arr* arr, Size size)
+{
+    for (int i = 0; i < size - 1; i++)
+    {
+        for (int j = (size - 1); j > i; j--) // дл€ всех элементов после i-ого
+        {
+            if (arr[j - 1] > arr[j]) // если текущий элемент меньше предыдущего
+            {
+                int temp = arr[j - 1]; // мен€ем их местами
+                arr[j - 1] = arr[j];
+                arr[j] = temp;
+            }
+        }
+    }
+}
+
+template<class Arr, class Size>
+inline void Sorter<Arr, Size>::InsertSort(Arr* arr, Size size)
+{
+    for (int i = 1; i < size; i++)
+        for (int j = i; j > 0 && arr[j - 1] > arr[j]; j--) // пока j>0 и элемент j-1 > j, x-массив int
+            swap(arr[j - 1], arr[j]);     // мен€ем местами элементы j и j-1
+}
+
+template<class Arr, class Size>
+inline void Sorter<Arr, Size>::SelectSort(Arr* arr, Size size)
+{
+    int min = 0;
+    int buf = 0;
+    for (int i = 0; i < size; i++)
+    {
+        min = i; // запомним номер текущей €чейки, как €чейки с минимальным значением
+        // в цикле найдем реальный номер €чейки с минимальным значением
+        for (int j = i + 1; j < size; j++)
+            min = (arr[j] < arr[min]) ? j : min;
+        // cделаем перестановку этого элемента, помен€в его местами с текущим
+        if (i != min)
+        {
+            buf = arr[i];
+            arr[i] = arr[min];
+            arr[min] = buf;
+        }
+    }
+}
+
+template<class Arr, class Size>
+inline void Sorter<Arr, Size>::qsortRecursive(Arr* arr, Size size) // have a problem
 {
     //”казатели в начало и в конец массива
     int i = 0;
     int j = size - 1;
-    /*static int count = 0;
-    ++count;
-    if (count % 10 == 0)
-    {
-        cout << count << endl;
-
-    }*/
     //÷ентральный элемент массива
-    int mid = arr[size / 2];
+    Size mid = arr[size / 2];
 
     //ƒелим массив
     do {
@@ -92,11 +134,11 @@ inline void Sorter<Arr, Size>::qsortRecursive(Arr* arr, Size size)
     //–екурсивные вызовы, если осталось, что сортировать
     if (j > 0) {
         //"Ћевый кусок"
-        qsortRecursive((Arr*)arr, (Size)j + 1);
+        qsortRecursive(arr, j + 1);
     }
     if (i < size) {
-        //"ѕрвый кусок"
-        qsortRecursive((Arr*)arr[i], (Size)size - i);
+        //"ѕравый кусок"
+        qsortRecursive(arr, size - i);
     }
 }
 
