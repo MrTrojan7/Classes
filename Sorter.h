@@ -21,7 +21,7 @@ inline void Sorter<T>::BubleSort(T* arr, int size)
         {
             if (arr[j - 1] > arr[j]) // если текущий элемент меньше предыдущего
             {
-                int temp = arr[j - 1]; // мен€ем их местами
+                T temp = arr[j - 1]; // мен€ем их местами
                 arr[j - 1] = arr[j];
                 arr[j] = temp;
             }
@@ -41,7 +41,7 @@ template<class T>
 inline void Sorter<T>::SelectSort(T* arr, int size)
 {
     int min = 0;
-    int buf = 0;
+    T temp = 0;
     for (int i = 0; i < size; i++)
     {
         min = i; // запомним номер текущей €чейки, как €чейки с минимальным значением
@@ -51,15 +51,15 @@ inline void Sorter<T>::SelectSort(T* arr, int size)
         // cделаем перестановку этого элемента, помен€в его местами с текущим
         if (i != min)
         {
-            buf = arr[i];
+            temp = arr[i];
             arr[i] = arr[min];
-            arr[min] = buf;
+            arr[min] = temp;
         }
     }
 }
 
 template<class T>
-inline void Sorter<T>::qsortRecursive(T* arr, int size) // have a problem
+inline void Sorter<T>::qsortRecursive(T* arr, int size)
 {
     //”казатели в начало и в конец массива
     int i = 0;
