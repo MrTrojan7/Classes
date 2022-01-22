@@ -8,13 +8,12 @@ int main()
 	int* arr = new int[size];
 	for (int i = 0; i < size; i++)
 	{
-		arr[i] = rand() % 200 + (-100);
+		arr[i] = rand() % 200 + (-100);// / 1.1; test with <double>
 	}
-	Sorter<int, int> test(arr, size);
-	test.Print(arr, size);
-	cout << endl;
-	test.InsertSort(arr, size);
-	test.Print(arr, size);
+	Sorter<int> test;
+	test.PrintArray(arr, size);
+	test.qsortRecursive(arr, size);
+	test.PrintArray(arr, size);
 	/*for (int i = 0; i < size; i++)
 	{
 		cout << arr[i] << "\t";
@@ -23,7 +22,7 @@ int main()
 			cout << endl;
 		}
 	}*/
-	cout << endl;
+	
 	/*for (int i = 0; i < size; i++)
 	{
 		cout << arr[i] << "\t";

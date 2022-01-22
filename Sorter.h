@@ -1,59 +1,19 @@
 #pragma once
 #include "AllLibraries.h"
 
-template <class Arr, class Size>
+template <class T>
 class Sorter
 {
-private:
-    Arr* arr = nullptr;
-    Size size;
 public:
-    Sorter(Arr* _arr, Size _size);
-    ~Sorter();
-    const Size GetSize() const;
-    void SetSize(Size _size);
-    static void BubleSort(Arr* arr, Size size);
-    static void InsertSort(Arr* arr, Size size);
-    static void SelectSort(Arr* arr, Size size);
-    static void qsortRecursive(Arr* arr, Size size);
-    void Print(Arr* arr, Size size);
+    static void BubleSort(T* arr, int size);
+    static void InsertSort(T* arr, int size);
+    static void SelectSort(T* arr, int size);
+    static void qsortRecursive(T* arr, int size);
+    void PrintArray(T* arr, int size);
 };
-    
-template<class Arr, class Size>
-inline Sorter<Arr, Size>::Sorter(Arr* _arr, Size _size)
-{
-    SetSize(_size);
-    arr = new Arr[GetSize()];
-    for (auto i = 0; i < GetSize(); i++)
-    {
-        arr[i] = _arr[i];
-    }
-}
 
-template<class Arr, class Size>
-inline Sorter<Arr, Size>::~Sorter()
-{
-    if (arr != nullptr)
-    {
-        delete[] arr;
-        arr = nullptr;
-    }
-}
-
-template<class Arr, class Size>
-inline const Size Sorter<Arr, Size>::GetSize() const
-{
-    return size;
-}
-
-template<class Arr, class Size>
-inline void Sorter<Arr, Size>::SetSize(Size _size)
-{
-    this->size = _size;
-}
-
-template<class Arr, class Size>
-inline void Sorter<Arr, Size>::BubleSort(Arr* arr, Size size)
+template<class T>
+inline void Sorter<T>::BubleSort(T* arr, int size)
 {
     for (int i = 0; i < size - 1; i++)
     {
@@ -69,16 +29,16 @@ inline void Sorter<Arr, Size>::BubleSort(Arr* arr, Size size)
     }
 }
 
-template<class Arr, class Size>
-inline void Sorter<Arr, Size>::InsertSort(Arr* arr, Size size)
+template<class T>
+inline void Sorter<T>::InsertSort(T* arr, int size)
 {
     for (int i = 1; i < size; i++)
         for (int j = i; j > 0 && arr[j - 1] > arr[j]; j--) // пока j>0 и элемент j-1 > j, x-массив int
             swap(arr[j - 1], arr[j]);     // меняем местами элементы j и j-1
 }
 
-template<class Arr, class Size>
-inline void Sorter<Arr, Size>::SelectSort(Arr* arr, Size size)
+template<class T>
+inline void Sorter<T>::SelectSort(T* arr, int size)
 {
     int min = 0;
     int buf = 0;
@@ -98,14 +58,14 @@ inline void Sorter<Arr, Size>::SelectSort(Arr* arr, Size size)
     }
 }
 
-template<class Arr, class Size>
-inline void Sorter<Arr, Size>::qsortRecursive(Arr* arr, Size size) // have a problem
+template<class T>
+inline void Sorter<T>::qsortRecursive(T* arr, int size) // have a problem
 {
     //Указатели в начало и в конец массива
     int i = 0;
     int j = size - 1;
     //Центральный элемент массива
-    Size mid = arr[size / 2];
+    T mid = arr[size / 2];
 
     //Делим массив
     do {
@@ -121,7 +81,7 @@ inline void Sorter<Arr, Size>::qsortRecursive(Arr* arr, Size size) // have a pro
 
         //Меняем элементы местами
         if (i <= j) {
-            int tmp = arr[i];
+            T tmp = arr[i];
             arr[i] = arr[j];
             arr[j] = tmp;
 
@@ -138,19 +98,20 @@ inline void Sorter<Arr, Size>::qsortRecursive(Arr* arr, Size size) // have a pro
     }
     if (i < size) {
         //"Правый кусок"
-        qsortRecursive(arr, size - i);
+        qsortRecursive(&arr[i], size - i);
     }
 }
 
-template<class Arr, class Size>
-inline void Sorter<Arr, Size>::Print(Arr* arr, Size size)
+template<class T>
+inline void Sorter<T>::PrintArray(T* arr, int size)
 {
-    for (auto i = 0; i < size; i++)
+    for (int i = 0; i < size; i++)
     {
         cout << arr[i] << "\t";
         if ((i + 1) % 5 == 0)
         {
-            cout << endl;
+            cout << "\n";
         }
     }
+    cout << "\n";
 }
