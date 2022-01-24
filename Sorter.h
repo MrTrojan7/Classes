@@ -121,16 +121,24 @@ inline void Sorter<T>::Reverse(T* arr, unsigned int const size)
 template<class T>
 inline void Sorter<T>::RandomShuffle(T* arr, unsigned int const size)
 {
-    random_shuffle(&arr[0], &arr[size]);
-    /*int iter = size * 10;
-    while (iter > 0)
+    //random_shuffle(&arr[0], &arr[size]);
+    int iter = size * 1000;
+    for (int i = 0; i < iter; i++)
     {
-        srand(time(0));
-        int i = rand() % size;
-        int j = rand() % size;
-        Swap(arr[i], arr[j]);
-        --iter;
-    }*/
+        while (iter > 0)
+        {
+            srand(time(0));
+            int k = rand() % (size + 1);
+            int m = rand() % (size + 1);
+            if (k == m)
+                continue;
+            /*T buffer = arr[k];
+            arr[k] = arr[m];
+            arr[m] = buffer;*/
+            Swap(arr[k], arr[m]); // have a problem
+            --iter;
+        }
+    }
 }
 
 template<class T>
