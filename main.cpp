@@ -5,7 +5,7 @@
 int main()
 {
 	srand(time(NULL));
-	Vector<int> test(15, 5);
+	/*Vector<int> test(15, 5);
 	cout << test.GetCapacity() << endl;
 	cout << test.GetSize() << endl;
 	test.Print();
@@ -29,6 +29,47 @@ int main()
 	test.Remove(9);
 	cout << test.GetCapacity() << endl;
 	cout << test.GetSize() << endl;
-	test.Print();
+	test.Print();*/
+	int size = 100;
+	int* arr = new int[size];
+	for (int i = 0; i < size; i++)
+	{
+		arr[i] = rand() % 30;
+	}
+	Vector <int> test2(size, arr);
+	cout << test2.GetCapacity() << endl;
+	cout << test2.GetSize() << endl;
+	test2.Print();
+	test2.PushBack(777);
+	test2.PushBack(777);
+	test2.PushBack(700);
+	test2.PushFront(666);
+	cout << test2.GetCapacity() << endl;
+	cout << test2.GetSize() << endl;
+	test2.Print();
+	/*test2.Clear();
+	cout << test2.GetCapacity() << endl;
+	cout << test2.GetSize() << endl;
+	test2.Print();
+	test2.PushBack(777);
+	test2.PushFront(657);
+	test2.PushFront(65);
+	test2.PushFront(6);
+	test2.RemoveAt(0);
+	test2.Print();*/
+	cout << test2.IndexOf(20) << endl;
+	cout << test2.LastIndexOf(20) << endl;
+	cout << test2.GetCapacity() << endl;
+	cout << test2.GetSize() << endl;
+	test2.Print();
+	test2.SortAsc();
+	test2.SortDesc();
+	cout << endl;
+	cout << test2.GetCapacity() << endl;
+	cout << test2.GetSize() << endl;
+	test2.Print();
+	test2.RandomShuffle();
+	test2.Print();
+	delete[] arr;
 	return 0;
 }

@@ -5,15 +5,18 @@ template <class T>
 class Sorter
 {
 public:
-    static void BubleSort(T* arr, int size);
-    static void InsertSort(T* arr, int size);
-    static void SelectSort(T* arr, int size);
-    static void qsortRecursive(T* arr, int size);
-    void PrintArray(T* arr, int size);
+    static void BubleSort(T* arr, unsigned int const size);
+    static void InsertSort(T* arr, unsigned int const size);
+    static void SelectSort(T* arr, unsigned int const size);
+    static void qsortRecursive(T* arr, unsigned int const size);
+    static void Swap(T& ref1, T& ref2);
+    static void Reverse(T* arr, unsigned int const size);
+    static void RandomShuffle(T* arr, unsigned int const size);
+    void PrintArray(T* arr, unsigned int const size);
 };
 
 template<class T>
-inline void Sorter<T>::BubleSort(T* arr, int size)
+inline void Sorter<T>::BubleSort(T* arr, unsigned int const size)
 {
     for (int i = 0; i < size - 1; i++)
     {
@@ -21,24 +24,22 @@ inline void Sorter<T>::BubleSort(T* arr, int size)
         {
             if (arr[j - 1] > arr[j]) // если текущий элемент меньше предыдущего
             {
-                T temp = arr[j - 1]; // меняем их местами
-                arr[j - 1] = arr[j];
-                arr[j] = temp;
+                Swap(arr[j - 1], arr[j]); // меняем их местами
             }
         }
     }
 }
 
 template<class T>
-inline void Sorter<T>::InsertSort(T* arr, int size)
+inline void Sorter<T>::InsertSort(T* arr, unsigned int const size)
 {
     for (int i = 1; i < size; i++)
         for (int j = i; j > 0 && arr[j - 1] > arr[j]; j--) // пока j>0 и элемент j-1 > j, x-массив int
-            swap(arr[j - 1], arr[j]);     // меняем местами элементы j и j-1
+            Swap(arr[j - 1], arr[j]);     // меняем местами элементы j и j-1
 }
 
 template<class T>
-inline void Sorter<T>::SelectSort(T* arr, int size)
+inline void Sorter<T>::SelectSort(T* arr, unsigned int const size)
 {
     int min = 0;
     T temp = 0;
@@ -51,15 +52,13 @@ inline void Sorter<T>::SelectSort(T* arr, int size)
         // cделаем перестановку этого элемента, поменяв его местами с текущим
         if (i != min)
         {
-            temp = arr[i];
-            arr[i] = arr[min];
-            arr[min] = temp;
+            Swap(arr[i], arr[min]);
         }
     }
 }
 
 template<class T>
-inline void Sorter<T>::qsortRecursive(T* arr, int size)
+inline void Sorter<T>::qsortRecursive(T* arr, unsigned int const size)
 {
     //Указатели в начало и в конец массива
     int i = 0;
@@ -81,10 +80,7 @@ inline void Sorter<T>::qsortRecursive(T* arr, int size)
 
         //Меняем элементы местами
         if (i <= j) {
-            T tmp = arr[i];
-            arr[i] = arr[j];
-            arr[j] = tmp;
-
+            Swap(arr[i], arr[j]);
             i++;
             j--;
         }
@@ -103,7 +99,42 @@ inline void Sorter<T>::qsortRecursive(T* arr, int size)
 }
 
 template<class T>
-inline void Sorter<T>::PrintArray(T* arr, int size)
+inline void Sorter<T>::Swap(T& ref1, T& ref2)
+{
+    T buffer = ref1;
+    ref1 = ref2;
+    ref2 = buffer;
+}
+
+template<class T>
+inline void Sorter<T>::Reverse(T* arr, unsigned int const size)
+{
+    bool flag = true;
+    if (size % 2 == 0)
+        bool flag = false;
+    for (int i = 0, j = size - flag; i < j; i++, j--)
+    {
+        Swap(arr[i], arr[j]);
+    }
+}
+
+template<class T>
+inline void Sorter<T>::RandomShuffle(T* arr, unsigned int const size)
+{
+    random_shuffle(&arr[0], &arr[size]);
+    /*int iter = size * 10;
+    while (iter > 0)
+    {
+        srand(time(0));
+        int i = rand() % size;
+        int j = rand() % size;
+        Swap(arr[i], arr[j]);
+        --iter;
+    }*/
+}
+
+template<class T>
+inline void Sorter<T>::PrintArray(T* arr, unsigned int const size)
 {
     for (int i = 0; i < size; i++)
     {
