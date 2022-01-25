@@ -10,8 +10,6 @@ public:
     static void SelectSort(T* arr, unsigned int const size);
     static void qsortRecursive(T* arr, unsigned int const size);
     static void Swap(T& ref1, T& ref2);
-    static void Reverse(T* arr, unsigned int const size);
-    static void RandomShuffle(T* arr, unsigned int const size);
     void PrintArray(T* arr, unsigned int const size);
 };
 
@@ -104,41 +102,6 @@ inline void Sorter<T>::Swap(T& ref1, T& ref2)
     T buffer = ref1;
     ref1 = ref2;
     ref2 = buffer;
-}
-
-template<class T>
-inline void Sorter<T>::Reverse(T* arr, unsigned int const size)
-{
-    bool flag = true;
-    if (size % 2 == 0)
-        bool flag = false;
-    for (int i = 0, j = size - flag; i < j; i++, j--)
-    {
-        Swap(arr[i], arr[j]);
-    }
-}
-
-template<class T>
-inline void Sorter<T>::RandomShuffle(T* arr, unsigned int const size)
-{
-    //random_shuffle(&arr[0], &arr[size]);
-    int iter = size * 1000;
-    for (int i = 0; i < iter; i++)
-    {
-        while (iter > 0)
-        {
-            srand(time(0));
-            int k = rand() % (size + 1);
-            int m = rand() % (size + 1);
-            if (k == m)
-                continue;
-            /*T buffer = arr[k];
-            arr[k] = arr[m];
-            arr[m] = buffer;*/
-            Swap(arr[k], arr[m]); // have a problem
-            --iter;
-        }
-    }
 }
 
 template<class T>

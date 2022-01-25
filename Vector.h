@@ -15,6 +15,7 @@ private:
 	void ReallocationCapacity();
 	void ReallocationArray(const bool flag, unsigned int const index, const T& value);
 	void CheckIndex(unsigned int const index);
+	void Swap(T* _arr, unsigned int index_1, unsigned int index_2);
 public:
 	unsigned int GetSize() const;
 	unsigned int GetCapacity() const;
@@ -36,6 +37,8 @@ public:
 	void SortAsc();
 	void SortDesc();
 	void RandomShuffle();
+	void Reverse();
+	void RandomFill();
 	const int const IndexOf(const T& value) const;
 	const int const LastIndexOf(const T& value) const;
 	~Vector();
@@ -91,7 +94,7 @@ inline Vector<T>::Vector(unsigned int const size, const T& value) : Vector<T>(si
 template<class T>
 inline Vector<T>::Vector(unsigned int const size, const T* arr) : Vector<T>(size)
 {
-	for (unsigned int i = 0; i < GetSize(); i++) // not good... // search solution
+	for (unsigned int i = 0; i < GetSize(); i++)
 		this->_arr[i] = arr[i];
 }
 
@@ -270,15 +273,48 @@ inline void Vector<T>::SortDesc() // SortDesc
 {
 	Sorter<T> temp;
 	temp.qsortRecursive(_arr, _size);
-	temp.Reverse(_arr, _size);
+	Reverse();
 }
 
 template<class T>
-inline void Vector<T>::RandomShuffle()
+inline void Vector<T>::RandomShuffle() // RandomShuffle
 {
-	Sorter<T> temp;
-	temp.RandomShuffle(_arr, _size);
+	random_shuffle(&arr[0], &arr[_size]);
 }
+
+template<class T>
+inline void Vector<T>::Reverse() // Reverse
+{
+	bool flag = true;
+	if (_size % 2 == 0)
+		bool flag = false;
+	for (int i = 0, j = _size - flag; i < j; i++, j--)
+	{
+		Swap(this->_arr, i, j);
+	}
+}
+
+template<class T>
+inline void Vector<T>::Swap(T* _arr, unsigned int index_1, unsigned int index_2) // Swap (private)
+{
+	CheckIndex(index_1);
+	CheckIndex(index_2);
+	T buffer = this->_arr[index_1];
+	this->_arr[index_1] = this->_arr[index_2];
+	this->_arr[index_2] = buffer;
+}
+
+template<class T>
+inline void Vector<T>::RandomFill()
+{
+	srand(time(0));
+	for (unsigned int i = 0; i < _size; i++)
+	{
+		arr[i] = rand();
+	}
+}
+
+
 
 
 
