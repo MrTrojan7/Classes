@@ -15,7 +15,6 @@ private:
 	void ReallocationCapacity();
 	void ReallocationArray(const bool flag, unsigned int const index, const T& value);
 	void CheckIndex(unsigned int const index);
-	void Swap(T* _arr, unsigned int index_1, unsigned int index_2);
 public:
 	unsigned int GetSize() const;
 	unsigned int GetCapacity() const;
@@ -39,8 +38,12 @@ public:
 	void RandomShuffle();
 	void Reverse();
 	void RandomFill();
+	void Swap(unsigned int index_1, unsigned int index_2);
+	bool Equal(Vector<T>& vector) const;
+	T GetElementAt(unsigned int const index);
 	const int const IndexOf(const T& value) const;
 	const int const LastIndexOf(const T& value) const;
+	void Clone(Vector<T>& vector);
 	~Vector();
 	void Print();
 };
@@ -60,40 +63,39 @@ inline unsigned int Vector<T>::GetCapacity() const // GetCapacity
 template<class T>
 inline void Vector<T>::SetCapacity(unsigned int capacity) // SetCapacity
 {
-	if (capacity < 10)
-	{
-		SetCapacity(10);
-	}
-	else if (capacity >= 10)
-	{
+	if (capacity <= 10)
+		this->_capacity = 10;
+	else if (capacity > 10)
 		this->_capacity = capacity;
-	}
+	this->_arr = new T[_capacity];
 }
+
 ///////// C-TORS
 
 template<class T>
-inline Vector<T>::Vector() : Vector<T>(10)
-{
-}
+inline Vector<T>::Vector() : Vector<T>(10) {}
 
 template<class T>
 inline Vector<T>::Vector(unsigned int const capacity) //C-tor with param (capacity)
 {
 	SetCapacity(capacity);
-	this->_size = capacity;
-	this->_arr = new T[_capacity];
+	this->_size = 0;
 }
 
 template<class T>
-inline Vector<T>::Vector(unsigned int const size, const T& value) : Vector<T>(size)
+inline Vector<T>::Vector(unsigned int const size, const T& value)
 {
+	SetCapacity(size);
+	this->_size = size;
 	for (unsigned int i = 0; i < GetSize(); i++)
 		this->_arr[i] = value;
 }
 
 template<class T>
-inline Vector<T>::Vector(unsigned int const size, const T* arr) : Vector<T>(size)
+inline Vector<T>::Vector(unsigned int const size, const T* arr)
 {
+	SetCapacity(size);
+	this->_size = size;
 	for (unsigned int i = 0; i < GetSize(); i++)
 		this->_arr[i] = arr[i];
 }
@@ -109,7 +111,7 @@ inline void Vector<T>::EnsureCapacity(unsigned int const size) // EnsureCapacity
 	}
 	else if (size >= _capacity)
 	{
-		this->_capacity = (_capacity * 1.5 + 1);
+		this->_capacity = (size * 1.5 + 1);
 		ReallocationCapacity();
 	}
 }
@@ -205,7 +207,7 @@ inline void Vector<T>::ReallocationCapacity() // Reallocation Capacity (Private 
 	{
 		temp[i] = _arr[i];
 	}
-	if (_arr != nullptr) // maybe "~Vector"?
+	if (_arr != nullptr)
 	{
 		delete[] _arr;
 		_arr = nullptr;
@@ -279,7 +281,7 @@ inline void Vector<T>::SortDesc() // SortDesc
 template<class T>
 inline void Vector<T>::RandomShuffle() // RandomShuffle
 {
-	random_shuffle(&arr[0], &arr[_size]);
+	random_shuffle(&_arr[0], &_arr[_size]);
 }
 
 template<class T>
@@ -295,7 +297,7 @@ inline void Vector<T>::Reverse() // Reverse
 }
 
 template<class T>
-inline void Vector<T>::Swap(T* _arr, unsigned int index_1, unsigned int index_2) // Swap (private)
+inline void Vector<T>::Swap(unsigned int index_1, unsigned int index_2) // Swap
 {
 	CheckIndex(index_1);
 	CheckIndex(index_2);
@@ -305,14 +307,62 @@ inline void Vector<T>::Swap(T* _arr, unsigned int index_1, unsigned int index_2)
 }
 
 template<class T>
-inline void Vector<T>::RandomFill()
+inline void Vector<T>::RandomFill() // RandomFill
 {
 	srand(time(0));
-	for (unsigned int i = 0; i < _size; i++)
+	for (unsigned int i = 0; i < GetSize(); i++)
 	{
-		arr[i] = rand();
+		_arr[i] = rand();
 	}
 }
+
+template<class T>
+inline bool Vector<T>::Equal(Vector<T> &vector) const // Equal
+{
+	if (IsEmpty() && vector.IsEmpty())
+	{
+		cout << " vec is empty - 1\n";
+		return true;
+	}
+	else if (_size != vector._size)
+	{
+		cout << " vec is non equal - 2\n";
+		return false;
+	}
+	else if (_size == vector._size)
+	{
+		for (unsigned int i = 0; i < GetSize(); i++)
+		{
+			if (_arr[i] != vector._arr[i])
+			{
+				cout << " vec is no equal - 3\n";
+				return false;
+			}
+		}
+	}
+	cout << " vec is equal - 4\n";
+	return true;
+}
+
+template<class T>
+inline T Vector<T>::GetElementAt(unsigned int const index) //GetElementAt
+{
+	CheckIndex(index);
+	T copy = _arr[index];
+	return copy;
+}
+
+template<class T>
+inline void Vector<T>::Clone(Vector<T> &vector)
+{
+	if (Equal(vector))
+		return;
+	EnsureCapacity(vector.GetSize());
+	this->_size = vector.GetSize();
+	for (unsigned int i = 0; i < GetSize(); i++)
+		_arr[i] = vector._arr[i];
+}
+
 
 
 
