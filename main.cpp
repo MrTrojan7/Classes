@@ -83,12 +83,25 @@ int main()
 
 	Vector <int> test5(size, arr);
 	Vector <int> test6(15);
-	test5.Print();
-	test6.Print();
+	//test5.Print();
+	//test6.Print();
 	test6.Clone(test5);
 	test6.PushBack(321);
+	test5.SortAsc();
+	test6.RandomShuffle();
 	test5.Print();
 	test6.Print();
+	//test5(test6); // bad
+	test6 = test5; // good
+	test5.Print();
+	test6.Print();
+	//cout << test6[12] << endl;
+	for (int i = 0; i < test6.GetSize(); i++)
+	{
+		cout << test6[i];
+	}
+
+
 
 	delete[] arr;
 	return 0;

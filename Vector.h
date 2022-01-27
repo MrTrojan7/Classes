@@ -22,6 +22,9 @@ public:
 	Vector(unsigned int const capacity = 10);
 	Vector(unsigned int const size, const T& value);
 	Vector(unsigned int const size, const T* arr);
+	Vector(Vector<T>& vector);
+	void operator = (Vector<T>& vector);
+	T operator [] (unsigned int const index);
 	////////////////
 	bool IsEmpty() const;
 	void PushBack(const T& value);
@@ -67,6 +70,11 @@ inline void Vector<T>::SetCapacity(unsigned int capacity) // SetCapacity
 		this->_capacity = 10;
 	else if (capacity > 10)
 		this->_capacity = capacity;
+	if (_arr != nullptr)
+	{
+		delete[] _arr;
+		_arr = nullptr;
+	}
 	this->_arr = new T[_capacity];
 }
 
@@ -100,6 +108,38 @@ inline Vector<T>::Vector(unsigned int const size, const T* arr)
 		this->_arr[i] = arr[i];
 }
 
+template<class T>
+inline Vector<T>::Vector(Vector<T>& vector) /*Vector<T>(vector._size, vector._arr)*/ // bad
+{
+	/*if (GetCapacity() != vector.GetCapacity())
+		SetCapacity(vector.GetCapacity());
+	if (GetSize() != vector.GetSize())
+		this->_size = vector.GetSize();
+	for (unsigned int i = 0; i < vector.GetSize(); i++)
+		this->_arr[i] = vector._arr[i];*/
+	//cout << "copy c-tor!\n";
+}
+
+//////////////////////
+// Overloads
+//////////////////////
+
+template<class T>
+inline void Vector<T>::operator = (Vector<T>& vector)
+{
+	if (GetCapacity() != vector.GetCapacity())
+		SetCapacity(vector.GetCapacity());
+	if (GetSize() != vector.GetSize())
+		this->_size = vector.GetSize();
+	for (unsigned int i = 0; i < vector.GetSize(); i++)
+		this->_arr[i] = vector._arr[i];
+}
+
+template<class T>
+inline T Vector<T>::operator [] (unsigned int const index)
+{
+	return GetElementAt(index);
+}
 /////////// Methods
 
 template<class T>
