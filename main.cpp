@@ -81,6 +81,11 @@ int main()
 	test3.Equal(test4);
 	cout << test2.GetElementAt(200) << endl;*/
 
+
+
+
+
+
 	Vector <int> test5(size, arr);
 	Vector <int> test6(15);
 	//test5.Print();
@@ -95,12 +100,13 @@ int main()
 	test6 = test5; // good
 	test5.Print();
 	test6.Print();
-	//cout << test6[12] << endl;
+	//cout << test6[12] << endl; //good
 	for (int i = 0; i < test6.GetSize(); i++)
 	{
-		cout << test6[i];
+		//test6[i] = 0; // bad
 	}
-
+	//test6[6] = test5[0]; // bad
+	//cout << test6; // bad
 
 
 	delete[] arr;

@@ -24,7 +24,9 @@ public:
 	Vector(unsigned int const size, const T* arr);
 	Vector(Vector<T>& vector);
 	void operator = (Vector<T>& vector);
+	void operator == (Vector<T>& vector);
 	T operator [] (unsigned int const index);
+	friend ostream& operator<< (ostream& out, Vector<T>& vector);
 	////////////////
 	bool IsEmpty() const;
 	void PushBack(const T& value);
@@ -136,9 +138,20 @@ inline void Vector<T>::operator = (Vector<T>& vector)
 }
 
 template<class T>
+ostream& operator<< (ostream& out, Vector<T>& vector)
+{
+	for (unsigned int i = 0; i < vector.GetSize(); i++)
+	{
+		out << vector._arr[i] << endl;
+	}
+	return out;
+}
+
+template<class T>
 inline T Vector<T>::operator [] (unsigned int const index)
 {
-	return GetElementAt(index);
+	CheckIndex(index);
+	return _arr[index];
 }
 /////////// Methods
 
