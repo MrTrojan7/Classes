@@ -16,6 +16,7 @@ private:
 	void ReallocationArray(const bool flag, unsigned int const index, const T& value);
 	void CheckIndex(unsigned int const index);
 public:
+	bool IsFoundElem(T& elem);
 	unsigned int GetSize() const;
 	unsigned int GetCapacity() const;
 	Vector();
@@ -24,7 +25,7 @@ public:
 	Vector(unsigned int const size, const T* arr);
 	Vector(Vector<T>& vector);
 	void operator = (Vector<T>& vector);
-	void operator == (Vector<T>& vector);
+	bool operator == (Vector<T>& vector);
 	T operator [] (unsigned int const index);
 	friend ostream& operator<< (ostream& out, Vector<T>& vector);
 	////////////////
@@ -138,6 +139,12 @@ inline void Vector<T>::operator = (Vector<T>& vector)
 }
 
 template<class T>
+inline bool Vector<T>::operator == (Vector<T>& vector)
+{
+	return Equal(vector);
+}
+
+template<class T>
 ostream& operator<< (ostream& out, Vector<T>& vector)
 {
 	for (unsigned int i = 0; i < vector.GetSize(); i++)
@@ -192,7 +199,8 @@ inline void Vector<T>::PushFront(const T& value) // PushFront
 template<class T>
 inline void Vector<T>::Insert(const T& value, unsigned int const index) // Insert
 {
-	CheckIndex(index);
+	if(!IsEmpty())
+		CheckIndex(index);
 	EnsureCapacity(++_size);
 	ReallocationArray(1, index, value);
 }
@@ -209,9 +217,11 @@ inline void Vector<T>::CheckIndex(unsigned int const index) // Check Index
 template<class T>
 inline void Vector<T>::RemoveAt(unsigned int const index) // Remove At Index
 {
+	if (IsEmpty())
+		return;
 	CheckIndex(index);
 	--_size;
-	ReallocationArray(0, index, _arr[index]); // _arr[index] - crutch...
+	ReallocationArray(0, index, _arr[index]); // _arr[index] - crutch in this function...
 }
 
 template<class T>
@@ -223,18 +233,20 @@ inline void Vector<T>::PopBack() // PopBack
 template<class T>
 inline void Vector<T>::Remove(const T& value) // Remove by value
 {
-	for (int i = GetSize(); i >= 0; i--)
+	if (IsEmpty())
+		return;
+	for (unsigned int i = GetSize(); i >= 0; i--)
 	{
 		if (_arr[i] == value)
-		{
 			RemoveAt(i);
-		}
 	}
 }
 
 template<class T>
 inline void Vector<T>::PopFront() // PopFront
 {
+	if (IsEmpty())
+		return;
 	RemoveAt(0);
 }
 
@@ -256,10 +268,8 @@ template<class T>
 inline void Vector<T>::ReallocationCapacity() // Reallocation Capacity (Private Method)
 {
 	T* temp = new T[GetCapacity()];
-	for (int i = 0; i < GetSize(); i++)
-	{
+	for (unsigned int i = 0; i < GetSize(); i++)
 		temp[i] = _arr[i];
-	}
 	if (_arr != nullptr)
 	{
 		delete[] _arr;
@@ -274,15 +284,13 @@ inline void Vector<T>::ReallocationArray(const bool flag, unsigned int const ind
 	T* temp = new T[GetCapacity()];
 	bool remove_flag = false;
 	bool insert_flag = false;
-	for (int i = 0; i < GetSize(); i++)
+	for (unsigned int i = 0; i < GetSize(); i++)
 	{
 		if (i == index)
 		{
 			flag == true ? insert_flag = true : remove_flag = true;
 			if (insert_flag)
-			{
 				temp[i] = value;
-			}
 		}
 		temp[i + insert_flag] = _arr[i + remove_flag];
 	}
@@ -297,7 +305,7 @@ inline void Vector<T>::ReallocationArray(const bool flag, unsigned int const ind
 template<class T>
 inline const int const Vector<T>::IndexOf(const T& value) const // indexOf
 {
-	for (int i = 0; i < GetSize(); i++)
+	for (unsigned int i = 0; i < GetSize(); i++)
 	{
 		if (_arr[i] == value)
 			return i;
@@ -308,7 +316,7 @@ inline const int const Vector<T>::IndexOf(const T& value) const // indexOf
 template<class T>
 inline const int const Vector<T>::LastIndexOf(const T& value) const //LastIndexOf
 {
-	for (int i = GetSize(); i >= 0; i--)
+	for (unsigned int i = GetSize() - 1; i >= 0; i--)
 	{
 		if (_arr[i] == value)
 			return i;
@@ -319,6 +327,8 @@ inline const int const Vector<T>::LastIndexOf(const T& value) const //LastIndexO
 template<class T>
 inline void Vector<T>::SortAsc() // SortAsc
 {
+	if (IsEmpty())
+		return;
 	Sorter<T> temp;
 	temp.qsortRecursive(_arr, _size);
 }
@@ -334,19 +344,31 @@ inline void Vector<T>::SortDesc() // SortDesc
 template<class T>
 inline void Vector<T>::RandomShuffle() // RandomShuffle
 {
-	random_shuffle(&_arr[0], &_arr[_size]);
+	//random_shuffle(&_arr[0], &_arr[_size]);
+	if (IsEmpty())
+		return;
+	unsigned int count = GetSize() - 1; // all ingenious is simple))
+	Vector<unsigned int> temp(count);
+	srand(time(0));
+	while (count > 0)
+	{
+		unsigned int r = rand() % (GetSize() - 1);
+		if (temp.IsFoundElem(r))
+			continue;
+		temp.PushFront(r);
+		--count;
+	}
+	for (unsigned int i = 0; i < (GetSize() - 1); i++)
+	{
+		Swap(i, temp[i]);
+	}
 }
 
 template<class T>
 inline void Vector<T>::Reverse() // Reverse
 {
-	bool flag = true;
-	if (_size % 2 == 0)
-		bool flag = false;
-	for (int i = 0, j = _size - flag; i < j; i++, j--)
-	{
-		Swap(this->_arr, i, j);
-	}
+	for (unsigned int i = 0; i < (GetSize() / 2 - 1); i++)
+		Swap(i, (_size - i - 1));
 }
 
 template<class T>
@@ -354,9 +376,9 @@ inline void Vector<T>::Swap(unsigned int index_1, unsigned int index_2) // Swap
 {
 	CheckIndex(index_1);
 	CheckIndex(index_2);
-	T buffer = this->_arr[index_1];
-	this->_arr[index_1] = this->_arr[index_2];
-	this->_arr[index_2] = buffer;
+	T buffer = _arr[index_1];
+	_arr[index_1] = _arr[index_2];
+	_arr[index_2] = buffer;
 }
 
 template<class T>
@@ -364,36 +386,24 @@ inline void Vector<T>::RandomFill() // RandomFill
 {
 	srand(time(0));
 	for (unsigned int i = 0; i < GetSize(); i++)
-	{
 		_arr[i] = rand();
-	}
 }
 
 template<class T>
 inline bool Vector<T>::Equal(Vector<T> &vector) const // Equal
 {
 	if (IsEmpty() && vector.IsEmpty())
-	{
-		cout << " vec is empty - 1\n";
 		return true;
-	}
 	else if (_size != vector._size)
-	{
-		cout << " vec is non equal - 2\n";
 		return false;
-	}
 	else if (_size == vector._size)
 	{
 		for (unsigned int i = 0; i < GetSize(); i++)
 		{
 			if (_arr[i] != vector._arr[i])
-			{
-				cout << " vec is no equal - 3\n";
 				return false;
-			}
 		}
 	}
-	cout << " vec is equal - 4\n";
 	return true;
 }
 
@@ -416,7 +426,16 @@ inline void Vector<T>::Clone(Vector<T> &vector)
 		_arr[i] = vector._arr[i];
 }
 
-
+template<class T>
+inline bool Vector<T>::IsFoundElem(T& elem)
+{
+	for (unsigned int i = 0; i < GetSize(); i++)
+	{
+		if (_arr[i] == elem)
+			return true;
+	}
+	return false;
+}
 
 
 
@@ -443,9 +462,7 @@ inline void Vector<T>::Print() // Print
 	{
 		cout << _arr[i] << ", ";
 		if ((i + 1) % 5 == 0)
-		{
 			cout << "\n";
-		}
 	}
 	cout << "\n";
 }

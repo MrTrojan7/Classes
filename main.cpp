@@ -81,8 +81,11 @@ int main()
 	test3.Equal(test4);
 	cout << test2.GetElementAt(200) << endl;*/
 
-
-
+	//Vector<int> test11(size, arr);
+	//test11.PushBack(15);
+	//test11.SortAsc();
+	//test11.Print();
+	
 
 
 
@@ -99,6 +102,7 @@ int main()
 	//test5(test6); // bad
 	test6 = test5; // good
 	test5.Print();
+	test6.PushBack(121);
 	test6.Print();
 	//cout << test6[12] << endl; //good
 	for (int i = 0; i < test6.GetSize(); i++)
@@ -107,8 +111,19 @@ int main()
 	}
 	//test6[6] = test5[0]; // bad
 	//cout << test6; // bad
+	test6.Reverse();
+	test6.Print();
+	test6.RandomShuffle();
+	test6.SortAsc();
+	test6.PopBack();
+	test6.Print();
+	test5.PushFront(100);
+	test5.Print();
 
-
+	if (test5 == test6)
+		cout << "true\n";
+	else
+		cout << "False\n";
 	delete[] arr;
 	return 0;
 }
