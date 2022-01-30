@@ -11,4 +11,5 @@
 #include <cstring> 
 #include <stdlib.h>
 #include <random>
+#include <ostream>
 using namespace std;

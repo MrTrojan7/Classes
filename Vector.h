@@ -23,11 +23,11 @@ public:
 	Vector(unsigned int const capacity = 10);
 	Vector(unsigned int const size, const T& value);
 	Vector(unsigned int const size, const T* arr);
-	Vector(Vector<T>& vector);
-	void operator = (Vector<T>& vector);
-	bool operator == (Vector<T>& vector);
-	T operator [] (unsigned int const index);
-	friend ostream& operator<< (ostream& out, Vector<T>& vector);
+	Vector(const Vector<T>& original);
+	void operator = (Vector<T>& original);
+	bool operator == (Vector<T>& original);
+	T& operator [] (unsigned int const index);
+	friend ostream& operator<< (ostream& out, const Vector<T> & original);
 	////////////////
 	bool IsEmpty() const;
 	void PushBack(const T& value);
@@ -112,15 +112,13 @@ inline Vector<T>::Vector(unsigned int const size, const T* arr)
 }
 
 template<class T>
-inline Vector<T>::Vector(Vector<T>& vector) /*Vector<T>(vector._size, vector._arr)*/ // bad
+inline Vector<T>::Vector(const Vector<T>& original) // copy c-tor
 {
-	/*if (GetCapacity() != vector.GetCapacity())
-		SetCapacity(vector.GetCapacity());
-	if (GetSize() != vector.GetSize())
-		this->_size = vector.GetSize();
-	for (unsigned int i = 0; i < vector.GetSize(); i++)
-		this->_arr[i] = vector._arr[i];*/
-	//cout << "copy c-tor!\n";
+	SetCapacity(original.GetCapacity());
+	_size = original.GetSize();
+	this->_arr = new int[_size];
+	for (unsigned int i = 0; i < _size; i++)
+		this->_arr[i] = original._arr[i];
 }
 
 //////////////////////
@@ -128,38 +126,49 @@ inline Vector<T>::Vector(Vector<T>& vector) /*Vector<T>(vector._size, vector._ar
 //////////////////////
 
 template<class T>
-inline void Vector<T>::operator = (Vector<T>& vector)
+inline void Vector<T>::operator = (Vector<T>& original) // operator =
 {
-	if (GetCapacity() != vector.GetCapacity())
-		SetCapacity(vector.GetCapacity());
-	if (GetSize() != vector.GetSize())
-		this->_size = vector.GetSize();
-	for (unsigned int i = 0; i < vector.GetSize(); i++)
-		this->_arr[i] = vector._arr[i];
+	this->Clear();
+	SetCapacity(original.GetCapacity());
+	this->_size = original.GetSize();
+	this->_arr = new int[_size];
+	for (unsigned int i = 0; i < original.GetSize(); i++)
+		this->_arr[i] = original._arr[i];
 }
 
 template<class T>
-inline bool Vector<T>::operator == (Vector<T>& vector)
+inline bool Vector<T>::operator == (Vector<T>& original) // operator ==
 {
-	return Equal(vector);
+	return Equal(original);
 }
 
+//template<class T>
+//ostream& operator<< (ostream& out, const Vector<T>& original)
+//{
+//	cout << "operator << begin\n";
+//	for (unsigned int i = 0; i < original.GetSize(); i++)
+//	{
+//		out << original._arr[i] << endl;
+//	}
+//	return out;
+//	cout << "operator << end\n";
+//}
+
 template<class T>
-ostream& operator<< (ostream& out, Vector<T>& vector)
+inline ostream& operator<<(ostream& out, const Vector<T>& original)
 {
-	for (unsigned int i = 0; i < vector.GetSize(); i++)
-	{
-		out << vector._arr[i] << endl;
-	}
+	for (unsigned int i = 0; i < original.GetSize(); i++)
+		out << original._arr[i] << endl;
 	return out;
 }
 
 template<class T>
-inline T Vector<T>::operator [] (unsigned int const index)
+inline T& Vector<T>::operator[](unsigned int const index)
 {
 	CheckIndex(index);
 	return _arr[index];
 }
+
 /////////// Methods
 
 template<class T>
@@ -359,9 +368,7 @@ inline void Vector<T>::RandomShuffle() // RandomShuffle
 		--count;
 	}
 	for (unsigned int i = 0; i < (GetSize() - 1); i++)
-	{
 		Swap(i, temp[i]);
-	}
 }
 
 template<class T>
@@ -390,17 +397,17 @@ inline void Vector<T>::RandomFill() // RandomFill
 }
 
 template<class T>
-inline bool Vector<T>::Equal(Vector<T> &vector) const // Equal
+inline bool Vector<T>::Equal(Vector<T> & original) const // Equal
 {
-	if (IsEmpty() && vector.IsEmpty())
+	if (IsEmpty() && original.IsEmpty())
 		return true;
-	else if (_size != vector._size)
+	else if (_size != original._size)
 		return false;
-	else if (_size == vector._size)
+	else if (_size == original._size)
 	{
 		for (unsigned int i = 0; i < GetSize(); i++)
 		{
-			if (_arr[i] != vector._arr[i])
+			if (_arr[i] != original._arr[i])
 				return false;
 		}
 	}

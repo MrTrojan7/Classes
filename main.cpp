@@ -124,6 +124,10 @@ int main()
 		cout << "true\n";
 	else
 		cout << "False\n";
+	Vector<int> copy = test5;
+	copy[2] = 123;
+	cout << copy;
+	copy.Print();
 	delete[] arr;
 	return 0;
 }
