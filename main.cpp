@@ -128,6 +128,10 @@ int main()
 	copy[2] = 123;
 	cout << copy;
 	copy.Print();
+	Vector<int> copy2(10, 2);
+	cout << copy2;
+	cin >> copy2;
+	cout << copy2;
 	delete[] arr;
 	return 0;
 }

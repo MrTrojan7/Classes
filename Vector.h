@@ -27,7 +27,9 @@ public:
 	void operator = (Vector<T>& original);
 	bool operator == (Vector<T>& original);
 	T& operator [] (unsigned int const index);
-	friend ostream& operator<< (ostream& out, const Vector<T> & original);
+	friend ostream& operator<<<T> (ostream& out, const Vector<T>& original);
+	friend istream& operator>><T> (istream& in, const Vector<T>& original);
+
 	////////////////
 	bool IsEmpty() const;
 	void PushBack(const T& value);
@@ -142,24 +144,20 @@ inline bool Vector<T>::operator == (Vector<T>& original) // operator ==
 	return Equal(original);
 }
 
-//template<class T>
-//ostream& operator<< (ostream& out, const Vector<T>& original)
-//{
-//	cout << "operator << begin\n";
-//	for (unsigned int i = 0; i < original.GetSize(); i++)
-//	{
-//		out << original._arr[i] << endl;
-//	}
-//	return out;
-//	cout << "operator << end\n";
-//}
-
 template<class T>
-inline ostream& operator<<(ostream& out, const Vector<T>& original)
+ostream& operator<<(ostream& out, const Vector<T>& original)
 {
 	for (unsigned int i = 0; i < original.GetSize(); i++)
 		out << original._arr[i] << endl;
 	return out;
+}
+
+template<class T>
+istream& operator>>(istream& in, const Vector<T>& original)
+{
+	for (unsigned int i = 0; i < original.GetSize(); i++)
+		in >> original._arr[i];
+	return in;
 }
 
 template<class T>
