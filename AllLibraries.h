@@ -12,4 +12,5 @@
 #include <stdlib.h>
 #include <random>
 #include <ostream>
+#include <cmath>
 using namespace std;

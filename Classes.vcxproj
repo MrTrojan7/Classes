@@ -139,13 +139,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Group.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MyDate.cpp" />
     <ClCompile Include="Sorter.cpp" />
+    <ClCompile Include="Student.cpp" />
     <ClCompile Include="Vector.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AllLibraries.h" />
+    <ClInclude Include="Group.h" />
+    <ClInclude Include="MyDate.h" />
     <ClInclude Include="Sorter.h" />
+    <ClInclude Include="Student.h" />
     <ClInclude Include="Vector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
