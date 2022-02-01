@@ -1,37 +1,35 @@
 #pragma once
+#pragma warning(disable : 4996);
 #include "AllLibraries.h"
 struct elemDate
 {
-    size_t day;
-    size_t month;
-    size_t year;
+    int day;
+    int month;
+    int year;
 };
 
-enum months
-{
-    January, February, March, April, May, June, July, August, September, October, November, December,
-};
 class MyDate
 {
 private:
     elemDate date;
-    int day_in_month[12]{ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 public:
-    MyDate(int y, int m, int d);
-    MyDate(string str);
+    MyDate(int day, int month, int year);
     MyDate();
-    MyDate(const MyDate& d);
-    elemDate getElemDate() const;
-    int getYear()const;
-    int getMonth()const;
-    int getDay()const;
-    void setYear(int y);
-    void setMonth(int m);
-    void setDay(int d);
-    bool isLeapYear();
-    bool operator ==(MyDate& d)const;
-    bool operator !=(MyDate& d)const;
-    MyDate getDiffDate(MyDate& d);
+    //elemDate getElemDate() const;
+    int GetYear()const;
+    int GetMonth()const;
+    int GetDay()const;
+    void SetYear(int year);
+    void SetMonth(int month);
+    void SetDay(int day);
+    bool IsLeapYear(int year);
+    bool IsInvalidDate(int year, int month, int day);
+    int YearsOfMonth(int year, int month);
+    int GetJDN(const elemDate date);
+    int operator - (MyDate& right);
+    //bool operator ==(MyDate& d)const;
+    //bool operator !=(MyDate& d)const;
+    //MyDate getDiffDate(MyDate& d);
     void Print();
 };
 

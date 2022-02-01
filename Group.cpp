@@ -118,7 +118,7 @@ void Group::Merge(Group& group)
 	this->_student = tmp;
 }
 
-void Group::OnceExpulsion() // ���������� ������
+void Group::OnceExpulsion()
 {
 	int min = _student[0].CheckGrades();
 	int index = 0;
