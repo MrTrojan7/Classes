@@ -5,10 +5,19 @@
 int main()
 {
 	srand(time(NULL));
-	MyDate t;
+	MyDate t(27, 2, 2020);
 	t.Print();
-	MyDate f(17, 3, 1997);
+	MyDate f(27, 2, 2020);
 	f.Print();
-	cout << t - f;
-	cout << f.DayOfWeek();
+	//cout << t - f << "\n";
+	cout << f.DayOfWeek() << "\n";
+	//f++;
+	//f++;
+	//f++;
+	////f++;
+	//f.Print();
+	cout << t.DayOfWeek() << "\n";
+	//f - 6;
+	//f.Print();
+	cout << f.DayOfWeek() << "\n";
 }

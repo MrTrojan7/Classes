@@ -12,6 +12,8 @@ class MyDate
 {
 private:
     elemDate date;
+    time_t date_null = time(0);
+    tm* now = localtime(&date_null);
 public:
     MyDate(int day, int month, int year);
     MyDate();
@@ -27,7 +29,14 @@ public:
     int YearsOfMonth(int year, int month);
     int GetJDN(const elemDate date);
     int operator - (MyDate& right);
-    void operator + (int days);
+    MyDate operator + (int days);
+    MyDate operator - (int days);
+    MyDate operator ++ (int day);
+    MyDate operator -- (int day);
+    bool operator ==(MyDate& right);
+    bool operator !=(MyDate& right);
+    bool operator >(MyDate& right);
+    bool operator <(MyDate& right);
     const char* DayOfWeek();
     //bool operator ==(MyDate& d)const;
     //bool operator !=(MyDate& d)const;

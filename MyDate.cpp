@@ -95,9 +95,77 @@ int MyDate::operator-(MyDate& right)
     return result;
 }
 
-void MyDate::operator+(int days)
+MyDate MyDate::operator+(int days)
 {
+    while (days > 0)
+    {
+        if (date.day == YearsOfMonth(date.year, date.month))
+        {
+            date.month++;
+            date.day = 0;
+        }
+        if (date.month == 13)
+        {
+            date.month = 1;
+            date.year++;
+        }
+        date.day++;
+        days--;
+    }
+    return MyDate();
+}
 
+MyDate MyDate::operator-(int days)
+{
+    while (days > 0)
+    {
+        if (date.month == 0)
+        {
+            date.month = 12;
+            date.year--;
+            date.day = YearsOfMonth(date.year, date.month);
+        }
+        if (date.day < 1)
+        {
+            date.month--;
+            date.day = YearsOfMonth(date.year, date.month);
+        }
+        date.day--;
+        days--;
+    }
+    return MyDate();
+}
+
+MyDate MyDate::operator++(int day)
+{
+    operator+(1);
+    return MyDate();
+}
+
+MyDate MyDate::operator--(int day)
+{
+    operator-(1);
+    return MyDate();
+}
+
+bool MyDate::operator==(MyDate& right)
+{
+    return GetJDN(date) == right.GetJDN(right.date);
+}
+
+bool MyDate::operator!=(MyDate& right)
+{
+    return GetJDN(date) != right.GetJDN(right.date);
+}
+
+bool MyDate::operator>(MyDate& right)
+{
+    return GetJDN(date) > right.GetJDN(right.date);
+}
+
+bool MyDate::operator<(MyDate& right)
+{
+    return GetJDN(date) < right.GetJDN(right.date);
 }
 
 const char* MyDate::DayOfWeek() 
