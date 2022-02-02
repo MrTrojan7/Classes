@@ -95,6 +95,18 @@ int MyDate::operator-(MyDate& right)
     return result;
 }
 
+void MyDate::operator+(int days)
+{
+
+}
+
+const char* MyDate::DayOfWeek() 
+{
+    const char* DayOfWeek[] = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
+    //cout << DayOfWeek[(GetJDN(date) % 7) + 1];
+    return DayOfWeek[(GetJDN(date) % 7)];
+}
+
 
 void MyDate::Print()
 {

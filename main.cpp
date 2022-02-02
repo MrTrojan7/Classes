@@ -10,4 +10,5 @@ int main()
 	MyDate f(17, 3, 1997);
 	f.Print();
 	cout << t - f;
+	cout << f.DayOfWeek();
 }

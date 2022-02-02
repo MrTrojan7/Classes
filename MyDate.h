@@ -27,6 +27,8 @@ public:
     int YearsOfMonth(int year, int month);
     int GetJDN(const elemDate date);
     int operator - (MyDate& right);
+    void operator + (int days);
+    const char* DayOfWeek();
     //bool operator ==(MyDate& d)const;
     //bool operator !=(MyDate& d)const;
     //MyDate getDiffDate(MyDate& d);
