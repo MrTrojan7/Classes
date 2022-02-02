@@ -12,12 +12,9 @@ class MyDate
 {
 private:
     elemDate date;
-    time_t date_null = time(0);
-    tm* now = localtime(&date_null);
 public:
     MyDate(int day, int month, int year);
     MyDate();
-    //elemDate getElemDate() const;
     int GetYear()const;
     int GetMonth()const;
     int GetDay()const;
