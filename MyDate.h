@@ -22,9 +22,9 @@ public:
     void SetMonth(int month);
     void SetDay(int day);
     bool IsLeapYear(int year);
-    bool IsInvalidDate(int year, int month, int day);
+    void IsInvalidDate(int year, int month, int day);
     int YearsOfMonth(int year, int month);
-    int GetJDN(const elemDate date);
+    int GetJDN();
     int operator - (MyDate& right);
     MyDate operator + (int days);
     MyDate operator - (int days);
@@ -35,9 +35,6 @@ public:
     bool operator >(MyDate& right);
     bool operator <(MyDate& right);
     const char* DayOfWeek();
-    //bool operator ==(MyDate& d)const;
-    //bool operator !=(MyDate& d)const;
-    //MyDate getDiffDate(MyDate& d);
     void Print();
 };
 

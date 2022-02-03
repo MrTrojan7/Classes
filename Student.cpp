@@ -177,13 +177,26 @@ char* Student::GetAdress() const
     return  adress;
 }
 
-void Student::GetGrades(const vector <int> mas) const // ��� ������ Show
+void Student::GetGrades(const vector <int> mas) const
 {
     for (size_t i = 0; i < mas.size(); i++)
         cout << mas[i] << " ";
 }
 
-const int const Student::GetMinGrade(const vector<int> mas) // ��� ����������
+int Student::GetAverageGrade()
+{
+    int result = 0;
+    int amount = mas1.size() + mas2.size() + mas3.size();
+    for (int i = 0; i < mas1.size(); i++)
+        result += mas1[i];
+    for (int i = 0; i < mas2.size(); i++)
+        result += mas2[i];
+    for (int i = 0; i < mas3.size(); i++)
+        result += mas3[i];
+    return (result / amount);
+}
+
+const int const Student::GetMinGrade(const vector<int> mas)
 {
     int min = mas[0];
     for (size_t i = 0; i < mas.size(); i++)
@@ -215,7 +228,7 @@ bool Student::GetCheckZero(int val1, int val2, int val3) const
     return true;
 }
 
-void Student::EditingStudent() // �������������� ������ � ��������
+void Student::EditingStudent()
 {
     string tmp;
     cout << "Enter new surname: ";
@@ -232,7 +245,7 @@ void Student::EditingStudent() // �������������� �
     SetAdress(tmp.c_str());
 }
 
-bool Student::operator>(const Student& student) const // �������� ���������� >
+bool Student::operator>(const Student& student) const 
 {
     for (int i = 0; i < strlen(this->surname); i++)
     {
@@ -254,6 +267,16 @@ bool Student::operator<(const Student& student) const
         return true;
 }
 
+bool Student::operator==(Student& student)
+{
+    return GetAverageGrade() == student.GetAverageGrade();
+}
+
+bool Student::operator!=(Student& student)
+{
+    return GetAverageGrade() != student.GetAverageGrade();
+}
+
 void Student::operator=(const Student& student)
 {
     this->SetSurame(student.GetSurname());
@@ -265,6 +288,14 @@ void Student::operator=(const Student& student)
     this->mas1.assign(student.mas1.begin(), student.mas1.end());
     this->mas2.assign(student.mas2.begin(), student.mas2.end());
     this->mas3.assign(student.mas3.begin(), student.mas3.end());
+}
+
+Student Student::operator+=(int grade)
+{
+    if (grade < 0 || grade > 12)
+        throw "invalid grade!";
+    this->mas3.push_back(grade);
+    return Student();
 }
 
 int Student::GetPhone(int phone) const

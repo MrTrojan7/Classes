@@ -251,6 +251,32 @@ const char* const Group::GetSpecialization() const
 	return this->_specialization;
 }
 
+Group Group::operator+=(Student& student)
+{
+	AddStudents(student);
+	return Group();
+}
+
+bool Group::operator>(Group& group)
+{
+	return GetQuantity() > group.GetQuantity();
+}
+
+bool Group::operator<(Group& group)
+{
+	return GetQuantity() < group.GetQuantity();
+}
+
+bool Group::operator==(Group& group)
+{
+	return GetQuantity() == group.GetQuantity();
+}
+
+bool Group::operator!=(Group& group)
+{
+	return GetQuantity() != group.GetQuantity();
+}
+
 Group::~Group()
 {
 	if (_student != nullptr)

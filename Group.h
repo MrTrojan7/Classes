@@ -36,5 +36,10 @@ public:
 	const char* const GetName() const;
 	const unsigned int const GetCourse() const;
 	const char* const GetSpecialization() const;
+	Group operator+=(Student& student);
+	bool operator > (Group& group);
+	bool operator < (Group& group);
+	bool operator == (Group& group);
+	bool operator != (Group& group);
 	~Group();
 };

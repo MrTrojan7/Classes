@@ -3,14 +3,10 @@
 
 MyDate::MyDate(int day, int month, int year)
 {
-    if (IsInvalidDate(year, month, day))
-    {
-        date.day = day;
-        date.month = month;
-        date.year = year;
-    }
-    else
-        throw "Incorrected date";
+    IsInvalidDate(year, month, day);
+    date.day = day;
+    date.month = month;
+    date.year = year;     
 }
 
 MyDate::MyDate() 
@@ -59,11 +55,10 @@ bool MyDate::IsLeapYear(int year)
     return false;
 }
 
-bool MyDate::IsInvalidDate(int year, int month, int day)
+void MyDate::IsInvalidDate(int year, int month, int day)
 {
     if ((year < 1) || (month < 0 || month >12) || (day < 0 || day > YearsOfMonth(year, month)))
-        return false;
-    return true;
+        throw "Incorrected date";
 }
 
 int MyDate::YearsOfMonth(int year, int month)
@@ -76,7 +71,7 @@ int MyDate::YearsOfMonth(int year, int month)
     return day;
 }
 
-int MyDate::GetJDN(const elemDate date)
+int MyDate::GetJDN()
 {
     int result;
     int a = ((14 - date.month) / 12);
@@ -90,7 +85,7 @@ int MyDate::GetJDN(const elemDate date)
 
 int MyDate::operator-(MyDate& right)
 {
-    int result = GetJDN(date) - right.GetJDN(right.date);
+    int result = GetJDN() - right.GetJDN();
     //cout << result << "\n"; //debug
     return result;
 }
@@ -119,18 +114,18 @@ MyDate MyDate::operator-(int days)
 {
     while (days > 0)
     {
+        date.day--;
         if (date.month == 0)
         {
             date.month = 12;
             date.year--;
             date.day = YearsOfMonth(date.year, date.month);
         }
-        if (date.day < 1)
+        if (date.day == 0)
         {
             date.month--;
             date.day = YearsOfMonth(date.year, date.month);
         }
-        date.day--;
         days--;
     }
     return MyDate();
@@ -150,29 +145,28 @@ MyDate MyDate::operator--(int day)
 
 bool MyDate::operator==(MyDate& right)
 {
-    return GetJDN(date) == right.GetJDN(right.date);
+    return GetJDN() == right.GetJDN();
 }
 
 bool MyDate::operator!=(MyDate& right)
 {
-    return GetJDN(date) != right.GetJDN(right.date);
+    return GetJDN() != right.GetJDN();
 }
 
 bool MyDate::operator>(MyDate& right)
 {
-    return GetJDN(date) > right.GetJDN(right.date);
+    return GetJDN() > right.GetJDN();
 }
 
 bool MyDate::operator<(MyDate& right)
 {
-    return GetJDN(date) < right.GetJDN(right.date);
+    return GetJDN() < right.GetJDN();
 }
 
 const char* MyDate::DayOfWeek() 
 {
     const char* DayOfWeek[] = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
-    //cout << DayOfWeek[(GetJDN(date) % 7) + 1];
-    return DayOfWeek[(GetJDN(date) % 7)];
+    return DayOfWeek[(GetJDN() % 7)];
 }
 
 
