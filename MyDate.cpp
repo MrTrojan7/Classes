@@ -174,3 +174,16 @@ void MyDate::Print()
 {
     cout << "Date: " << date.day << '-' << date.month << '-' << date.year << "\n";
 }
+
+ostream& operator<<(ostream& out, const MyDate& original)
+{
+    out << original.date.day << "-" << original.date.month << "-" << original.date.year;
+    return out;
+}
+
+istream& operator>>(istream& in, MyDate& original)
+{
+    in >> original.date.day >> original.date.month >> original.date.year;
+    original.IsInvalidDate(original.date.year, original.date.month, original.date.day);
+    return in;
+}

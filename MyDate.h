@@ -34,6 +34,8 @@ public:
     bool operator !=(MyDate& right);
     bool operator >(MyDate& right);
     bool operator <(MyDate& right);
+    friend ostream& operator << (ostream& out, const MyDate& original);
+    friend istream& operator >> (istream& in, MyDate& original);
     const char* DayOfWeek();
     void Print();
 };

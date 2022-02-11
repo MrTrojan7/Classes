@@ -32,6 +32,8 @@ public:
 	bool operator !=(Time& right);
 	bool operator >(Time& right);
 	bool operator <(Time& right);
+	friend ostream& operator << (ostream& out, const Time& original);
+	friend istream& operator >> (istream& in, Time& original);
 	void Print();
 };
 

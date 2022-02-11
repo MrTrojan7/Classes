@@ -169,3 +169,16 @@ void Time::Print()
 {
     cout << _time.hour << ":" << _time.minute << ":" << _time.second << "\n";
 }
+
+ostream& operator<<(ostream& out, const Time& original)
+{
+    out << original._time.hour << ":" << original._time.minute << ":" << original._time.second;
+    return out;
+}
+
+istream& operator>>(istream& in, Time& original)
+{
+    in >> original._time.hour >> original._time.minute >> original._time.second;
+    original.IsValidTime(original._time.hour, original._time.minute, original._time.second);
+    return in;
+}
