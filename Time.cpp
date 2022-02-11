@@ -72,7 +72,7 @@ void Time::IsValidTime(int hours, int minutes, int seconds) const
 
 int Time::GetSecondsOfDay()
 {
-    int result = _time.hour * _time.minute * _time.second;
+    int result = (3600 * _time.hour) + (60 * _time.minute) + _time.second;
     return result;
 }
 
