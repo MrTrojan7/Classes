@@ -277,6 +277,33 @@ bool Group::operator!=(Group& group)
 	return GetQuantity() != group.GetQuantity();
 }
 
+void Group::operator=(Group& group)
+{
+	this->Group::Group(group);
+	/*SetNameOfGroup(group._name);
+	SetSpecializationOfGroup(group._specialization);
+	SetQuantity(group._quantity);
+	SetCourse(group._course);
+	if (GetQuantity() > 0)
+	{
+		this->_student = new Student[GetQuantity()];
+		for (int i = 0; i < GetQuantity(); i++)
+			this->_student[i] = group._student[i];
+	}*/
+}
+
+Group Group::operator()(const char* name, const char* specialization, 
+	const unsigned int course, const unsigned int quantity)
+{
+	this->Group::Group(name, specialization, course, quantity);
+	return Group();
+}
+
+Student Group::operator[](unsigned int index)
+{
+	return _student[index];
+}
+
 Group::~Group()
 {
 	if (_student != nullptr)
@@ -295,4 +322,21 @@ Group::~Group()
 		delete[]_name;
 		_name = nullptr;
 	}
+}
+
+ostream& operator<<(ostream& out, const Group& original)
+{
+	out << original.GetName() << "\n" << original.GetSpecialization() << "\n"
+		<< original.GetCourse() << "\n" << original.GetQuantity() << "\n";
+	for (unsigned int i = 0; i < original.GetQuantity(); i++)
+		out << original._student[i] << "\n";
+	return out;
+}
+
+istream& operator>>(istream& in, Group& original)
+{
+	in >> original._name >> original._specialization >> original._quantity >> original._course;
+	for (unsigned int i = 0; i < original.GetQuantity(); i++)
+		in >> original._student[i];
+	return in;
 }

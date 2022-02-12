@@ -27,9 +27,9 @@ int main()
 	// 
 	// ///////////////////////////////////
 	// 
-	Time r;
-	Time f(23, 58, 38);
-	cout << r;
+	//Time r;
+	//Time f(23, 58, 38);
+	//cout << r;
 	//r.Print();
 	//f.Print();
 	////f - 39;
@@ -53,6 +53,16 @@ int main()
 	// 
 	// //////////////////////////////////
 	//
+	/*Group a(1);
+	Group b(6);
+	cout << a << "\n\n" << b << "\n\n";
+	a = b;
+	cout << a << "\n\n" << b << "\n\n";*/
 
+	//Student a;
+	//cout << a;
+
+	/*Group c(5);
+	cout << c[3];*/
 
 }

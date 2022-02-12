@@ -41,5 +41,11 @@ public:
 	bool operator < (Group& group);
 	bool operator == (Group& group);
 	bool operator != (Group& group);
+	void operator = (Group& group);
+	Group operator()(const char* name, const char* specialization,
+		const unsigned int course, const unsigned int quantity);
+	Student operator[] (unsigned int index);
+	friend ostream& operator << (ostream& out, const Group& original);
+	friend istream& operator >> (istream& in, Group& original);
 	~Group();
 };

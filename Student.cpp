@@ -290,6 +290,15 @@ void Student::operator=(const Student& student)
     this->mas3.assign(student.mas3.begin(), student.mas3.end());
 }
 
+Student Student::operator()(const char* Surname, const char* Name, 
+    const char* Patronymic, Date _Birthday, 
+    const char* Adress, PHONE Phone, 
+    const int val1, const int val2, const int val3)
+{
+    this->Student::Student(Surname, Name, Patronymic, _Birthday, Adress, Phone, val1, val2, val3);
+    return Student();
+}
+
 Student Student::operator+=(int grade)
 {
     if (grade < 0 || grade > 12)
@@ -378,4 +387,17 @@ Student::~Student()
         delete[]adress;
         adress = nullptr;
     }
+}
+
+ostream& operator<<(ostream& out, const Student& original)
+{
+    out << original.GetSurname() << " " << original.GetName() << " " << original.GetPatronymic() << "\n"
+        << original.GetAdress() << "\n" << original.phone.GetMobNum();
+    return out;
+}
+
+istream& operator>>(istream& in, Student& original)
+{
+    in >> original.surname >> original.name >> original.patronymic >> original.adress;
+    return in;
 }

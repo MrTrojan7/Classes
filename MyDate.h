@@ -12,6 +12,7 @@ class MyDate
 {
 private:
     elemDate date;
+    void IsInvalidDate(int year, int month, int day);
 public:
     MyDate(int day, int month, int year);
     MyDate();
@@ -22,7 +23,6 @@ public:
     void SetMonth(int month);
     void SetDay(int day);
     bool IsLeapYear(int year);
-    void IsInvalidDate(int year, int month, int day);
     int YearsOfMonth(int year, int month);
     int GetJDN();
     int operator - (MyDate& right);
@@ -34,6 +34,7 @@ public:
     bool operator !=(MyDate& right);
     bool operator >(MyDate& right);
     bool operator <(MyDate& right);
+    MyDate operator()(int day, int month, int year);
     friend ostream& operator << (ostream& out, const MyDate& original);
     friend istream& operator >> (istream& in, MyDate& original);
     const char* DayOfWeek();

@@ -72,6 +72,12 @@ public:
     bool operator == (Student& student);
     bool operator != (Student& student);
     void operator = (const Student& student);
+    Student operator()(const char* Surname, const char* Name,
+        const char* Patronymic, Date _Birthday,
+        const char* Adress, PHONE Phone,
+        const int val1, const int val2, const int val3);
+    friend ostream& operator << (ostream& out, const Student& original);
+    friend istream& operator >> (istream& in, Student& original);
     Student operator+= (int grade);
     void Show();
     Student();

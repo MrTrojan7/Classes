@@ -165,6 +165,15 @@ bool Time::operator<(Time& right)
     return GetSecondsOfDay() < right.GetSecondsOfDay();
 }
 
+Time Time::operator()(int hours, int minutes, int seconds)
+{
+    IsValidTime(hours, minutes, seconds);
+    SetHours(hours);
+    SetMinutes(minutes);
+    SetSeconds(seconds);
+    return Time();
+}
+
 void Time::Print()
 {
     cout << _time.hour << ":" << _time.minute << ":" << _time.second << "\n";

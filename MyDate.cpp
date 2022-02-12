@@ -163,6 +163,15 @@ bool MyDate::operator<(MyDate& right)
     return GetJDN() < right.GetJDN();
 }
 
+MyDate MyDate::operator()(int day, int month, int year) // reinitialization date
+{
+    IsInvalidDate(year, month, day);
+    SetDay(day);
+    SetMonth(month);
+    SetYear(year);
+    return MyDate();
+}
+
 const char* MyDate::DayOfWeek() 
 {
     const char* DayOfWeek[] = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
